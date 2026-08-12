@@ -1,0 +1,301 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Market Insights — PBAM SMU</title>
+<meta name="description" content="Latest financial headlines, market trends, and economic perspectives curated by PBAM.">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
+<link rel="stylesheet" href="styles.css">
+
+<style>
+  /* HERO SECTION WITH DALLAS SKYLINE BACKGROUND */
+  .page-hero {
+    position: relative !important;
+    background-image: url('images/dallas-jpm skyline.png') !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+    overflow: hidden;
+    padding: 90px 0 70px 0 !important;
+    text-align: center !important;
+  }
+
+  .page-hero::before {
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 35, 25, 0.70);
+    z-index: 1;
+  }
+
+  .page-hero-inner {
+    position: relative;
+    z-index: 2;
+  }
+
+  .page-hero h1 {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-style: italic !important;
+    color: #EAE8DC !important;
+    margin: 0 auto 10px auto !important;
+  }
+
+  .page-hero p {
+    color: rgba(234, 232, 220, 0.85);
+    max-width: 650px;
+    margin: 0 auto;
+    font-size: 1.05rem;
+  }
+
+  /* INSIGHTS GRID & CARDS */
+  .insights-section {
+    padding: 60px 0;
+  }
+
+  .insights-grid {
+    display: grid;
+    grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+    gap: 28px;
+    margin-top: 30px;
+  }
+
+  .insight-card {
+    background-color: #ffffff;
+    border: 1px solid rgba(21, 40, 32, 0.12);
+    border-radius: 4px;
+    padding: 28px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+    text-decoration: none;
+    color: inherit;
+  }
+
+  .insight-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(21, 40, 32, 0.08);
+  }
+
+  .insight-source {
+    font-size: 0.75rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    letter-spacing: 0.08em;
+    color: #152820;
+    opacity: 0.7;
+    margin-bottom: 8px;
+  }
+
+  .insight-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    line-height: 1.3;
+    font-weight: 600;
+    color: #152820;
+    margin-bottom: 12px;
+  }
+
+  .insight-snippet {
+    font-size: 0.95rem;
+    line-height: 1.5;
+    color: #4a5568;
+    margin-bottom: 20px;
+  }
+
+  .insight-meta {
+    font-size: 0.8rem;
+    color: #718096;
+    display: flex;
+    justify-content: space-between;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    padding-top: 14px;
+    margin-top: auto;
+  }
+
+  .insight-link {
+    font-weight: 500;
+    color: #152820;
+  }
+</style>
+</head>
+<body>
+
+<a href="#main" class="skip-link">Skip to content</a>
+
+<svg style="display:none">
+  <symbol id="col-icon" viewBox="0 0 60 60">
+    <line x1="8" y1="10" x2="52" y2="10"/>
+    <line x1="11" y1="15" x2="49" y2="15"/>
+    <line x1="14" y1="20" x2="17" y2="46"/>
+    <line x1="24" y1="20" x2="24" y2="46"/>
+    <line x1="30" y1="20" x2="30" y2="46"/>
+    <line x1="36" y1="20" x2="36" y2="46"/>
+    <line x1="46" y1="20" x2="43" y2="46"/>
+    <line x1="9" y1="50" x2="51" y2="50"/>
+  </symbol>
+</svg>
+
+<header id="siteHeader" class="static-light">
+  <nav class="wrap">
+    <a href="index.html" class="brand">
+      <svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg>
+      <span class="brand-name">PBAM</span>
+    </a>
+    <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
+      <span></span><span></span><span></span>
+    </button>
+    <div class="nav-links" id="navLinks">
+      <a href="index.html">Home</a>
+      <a href="what-we-do.html">What We Do</a>
+      <a href="market-insights.html" aria-current="page">Market Insights</a>
+      <a href="team.html">Team</a>
+      <a href="recruitment.html">Recruitment</a>
+      <a href="recruitment.html" class="nav-cta">Join PBAM</a>
+    </div>
+  </nav>
+</header>
+
+<main id="main">
+
+  <!-- PAGE HERO -->
+  <section class="page-hero">
+    <div class="wrap page-hero-inner">
+      <h1>Market Insights</h1>
+      <p>Curated headlines, macroeconomic perspectives, and asset management trends from top financial publications.</p>
+    </div>
+  </section>
+
+  <!-- INSIGHTS FEED -->
+  <section class="insights-section">
+    <div class="wrap">
+      <div id="news-feed" class="insights-grid">
+        
+        <!-- CARD 1 -->
+        <a href="https://privatebank.jpmorgan.com/nam/en/insights/markets-and-investing/tmt/ai-s-next-act-doesnt-have-to-choose" target="_blank" rel="noopener noreferrer" class="insight-card">
+          <div>
+            <div class="insight-source">Investment Strategy</div>
+            <div class="insight-title">AI’s Next Act Doesn’t Have to Choose</div>
+            <div class="insight-snippet">A shift is underway as semiconductor and hyperscaler stocks rally together, reflecting a broadening belief in artificial intelligence infrastructure.</div>
+          </div>
+          <div class="insight-meta">
+            <span>Aug 2026</span>
+            <span class="insight-link">Read Article &rarr;</span>
+          </div>
+        </a>
+
+        <!-- CARD 2 -->
+        <a href="https://privatebank.jpmorgan.com/nam/en/insights/markets-and-investing/investing-in-the-space-economy-from-sci-fi-to-reality" target="_blank" rel="noopener noreferrer" class="insight-card">
+          <div>
+            <div class="insight-source">Markets & Investing</div>
+            <div class="insight-title">Investing in the Space Economy: From Sci-Fi to Reality</div>
+            <div class="insight-snippet">A strategic roadmap exploring commercial opportunities across satellite networks, defense systems, and orbital infrastructure beyond primary launch providers.</div>
+          </div>
+          <div class="insight-meta">
+            <span>Aug 2026</span>
+            <span class="insight-link">Read Article &rarr;</span>
+          </div>
+        </a>
+
+        <!-- CARD 3 -->
+        <a href="https://privatebank.jpmorgan.com/nam/en/insights/markets-and-investing/tmt/rotation-not-reckoning-whats-testing-the-ai-trade" target="_blank" rel="noopener noreferrer" class="insight-card">
+          <div>
+            <div class="insight-source">Macro Trends</div>
+            <div class="insight-title">Rotation, Not Reckoning: What’s Testing the AI Trade?</div>
+            <div class="insight-snippet">Investors are shifting away from high-concentration tech trades into overlooked sectors as they seek tangible proof of capital returns.</div>
+          </div>
+          <div class="insight-meta">
+            <span>Jul 2026</span>
+            <span class="insight-link">Read Article &rarr;</span>
+          </div>
+        </a>
+
+        <!-- CARD 4 -->
+        <a href="https://privatebank.jpmorgan.com/nam/en/insights/markets-and-investing/why-infrastructure-now" target="_blank" rel="noopener noreferrer" class="insight-card">
+          <div>
+            <div class="insight-source">Alternative Investments</div>
+            <div class="insight-title">Why Infrastructure Now? Defensive Allocation</div>
+            <div class="insight-snippet">Infrastructure assets offer inflation-sensitive cash flows and stable income yields, serving as a compelling complement to gold in volatile market regimes.</div>
+          </div>
+          <div class="insight-meta">
+            <span>Jul 2026</span>
+            <span class="insight-link">Read Article &rarr;</span>
+          </div>
+        </a>
+
+        <!-- CARD 5 -->
+        <a href="https://privatebank.jpmorgan.com/nam/en/insights/markets-and-investing/the-3-jobs-of-cash-is-yours-purposeful-or-parked" target="_blank" rel="noopener noreferrer" class="insight-card">
+          <div>
+            <div class="insight-source">Wealth Planning</div>
+            <div class="insight-title">The 3 Jobs of Cash: Is Yours Purposeful or Parked?</div>
+            <div class="insight-snippet">Spend, protect, and invest: Put parked liquid cash to work by aligning specific pools of capital directly to long-term wealth objectives.</div>
+          </div>
+          <div class="insight-meta">
+            <span>Jul 2026</span>
+            <span class="insight-link">Read Article &rarr;</span>
+          </div>
+        </a>
+
+        <!-- CARD 6 -->
+        <a href="https://privatebank.jpmorgan.com/nam/en/insights/latest-and-featured/mid-year-outlook" target="_blank" rel="noopener noreferrer" class="insight-card">
+          <div>
+            <div class="insight-source">Global Economy</div>
+            <div class="insight-title">2026 Mid-Year Outlook: Promise and Pressure</div>
+            <div class="insight-snippet">Key structural themes for global asset managers: navigate geopolitical fragmentation, persistent inflation drivers, and AI productivity gains.</div>
+          </div>
+          <div class="insight-meta">
+            <span>May 2026</span>
+            <span class="insight-link">Read Article &rarr;</span>
+          </div>
+        </a>
+
+      </div>
+    </div>
+  </section>
+
+</main>
+
+<footer>
+  <div class="wrap">
+    <div class="foot-top">
+      <div class="foot-brand">
+        <svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg>
+        <span class="foot-brand-name">PBAM</span>
+      </div>
+      <div class="foot-links">
+        <div class="foot-col">
+          <h4>Explore</h4>
+          <a href="index.html">Home</a>
+          <a href="what-we-do.html">What We Do</a>
+          <a href="market-insights.html">Market Insights</a>
+          <a href="team.html">Team</a>
+        </div>
+        <div class="foot-col">
+          <h4>Connect</h4>
+          <a href="recruitment.html">Recruitment</a>
+          <a href="https://www.linkedin.com/company/pb-am/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://www.instagram.com/smu.pbam/" target="_blank" rel="noopener noreferrer">Instagram</a>
+        </div>
+        <div class="foot-col">
+          <h4>Southern Methodist University</h4>
+          <p>Dallas, TX</p>
+        </div>
+      </div>
+    </div>
+    <div class="foot-bottom">
+      <span>&copy; 2026 Private Banking &amp; Asset Management Club, SMU.</span>
+      <span>Student-run &middot; Not affiliated with SMU financial services</span>
+    </div>
+  </div>
+</footer>
+
+<script src="script.js"></script>
+</body>
+</html>
