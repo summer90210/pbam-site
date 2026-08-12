@@ -49,8 +49,57 @@
 
 <main id="top">
 
-  <!-- HERO -->
+<!-- HERO WITH SKYLINE BACKGROUND -->
+<style>
+  /* Force the new skyline background image on the hero section */
+  .hero {
+    position: relative !important;
+    background-image: url('images/dallas-jpm skyline.png') !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+    overflow: hidden;
+  }
+
+  /* Dark green semi-transparent overlay so text remains readable */
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 35, 25, 0.65);
+    z-index: 1;
+  }
+
+  /* Keep text, icons, and buttons on top of the image */
+  .hero-cols,
+  .hero-inner,
+  .hero-base {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Target strictly the hero "JOIN PBAM" button background box */
+  .btn-primary,
+  a.btn-primary {
+    background-color: #EAE8DC !important;
+    border-color: #EAE8DC !important;
+    color: #152820 !important;
+  }
+
+  /* Ensure auto-scaling on mobile devices */
+  @media (max-width: 768px) {
+    .hero {
+      background-position: center center !important;
+      padding: 60px 20px;
+    }
+  }
+</style>
+
   <section class="hero">
+    <div class="hero-overlay"></div>
     <div class="hero-cols" aria-hidden="true">
       <svg viewBox="0 0 60 60"><use href="#col-icon"/></svg>
       <svg viewBox="0 0 60 60"><use href="#col-icon"/></svg>
@@ -61,22 +110,13 @@
     <div class="wrap hero-inner">
       <div class="eyebrow on-dark"><span class="rule"></span>Southern Methodist University</div>
       <h1>Private Banking &amp;<br><em>Asset Management</em></h1>
-      <p class="hero-sub">Connecting academic learning with real-world financial experience in the wealth and asset management sector — through educational sessions, guest speakers, and hands-on portfolio projects.</p>
+      <p class="hero-sub">A student-run club at the intersection of capital markets and client services, preparing members for the evolving world of private wealth & asset management — through educational sessions and portfolio construction.</p>
       <div class="hero-actions">
         <a href="recruitment.html" class="btn btn-primary">Join PBAM</a>
         <a href="#about" class="btn btn-ghost">Learn More</a>
       </div>
     </div>
     <div class="hero-base"></div>
-  </section>
-
-  <!-- DALLAS SKYLINE -->
-  <section class="tight" style="padding-top:0;">
-    <div class="wrap">
-      <div class="skyline-photo reveal">
-        <img src="images/dallas-skyline.jpg" alt="Downtown Dallas skyline at golden hour, including Reunion Tower">
-      </div>
-    </div>
   </section>
 
   <!-- ABOUT -->

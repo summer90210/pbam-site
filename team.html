@@ -9,6 +9,103 @@
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
 <link rel="stylesheet" href="styles.css">
+
+<style>
+  /* Hero section with skyline background image */
+  .hero {
+    position: relative !important;
+    background-image: url('images/dallas-jpm skyline.png') !important;
+    background-size: cover !important;
+    background-position: center center !important;
+    background-repeat: no-repeat !important;
+    background-color: transparent !important;
+    overflow: hidden;
+  }
+
+  /* Semi-transparent overlay over hero image */
+  .hero-overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background-color: rgba(15, 35, 25, 0.65);
+    z-index: 1;
+  }
+
+  .hero-cols,
+  .hero-inner,
+  .hero-base {
+    position: relative;
+    z-index: 2;
+  }
+
+  /* Join PBAM button styling */
+  .btn-primary,
+  a.btn-primary {
+    background-color: #EAE8DC !important;
+    border-color: #EAE8DC !important;
+    color: #152820 !important;
+  }
+
+  /* FORCE ALL TEAM & FOUNDER PHOTOS TO SCALE TO FILL THE ENTIRE GREEN BOX */
+  .team-photo {
+    position: relative !important;
+    width: 100% !important;
+    height: 320px !important; /* Standard height matching executive board cards */
+    overflow: hidden !important;
+    background-color: transparent !important;
+  }
+
+  .team-photo img {
+    width: 100% !important;
+    height: 100% !important;
+    object-fit: cover !important;
+    object-position: center top !important;
+    display: block !important;
+  }
+
+  /* Flex layout to align the name and LinkedIn icon side-by-side */
+  .team-name {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 8px;
+  }
+
+  /* LinkedIn icon link styling */
+/* Flex layout to align the name and LinkedIn icon side-by-side */
+  .team-name {
+    display: flex !important;
+    align-items: center !important;
+    justify-content: space-between !important;
+    gap: 10px;
+  }
+
+  /* LinkedIn icon link styling */
+  .linkedin-link {
+    display: inline-flex;
+    align-items: center;
+    color: #152820; /* Dark green brand color */
+    opacity: 0.8;
+    transition: opacity 0.2s ease, transform 0.2s ease;
+    text-decoration: none;
+  }
+
+  .linkedin-link:hover {
+    opacity: 1;
+    transform: translateY(-1px);
+  }
+
+  /* Increased from 16px to 22px for better visibility */
+  .linkedin-icon {
+    width: 22px;
+    height: 22px;
+    fill: currentColor;
+  }
+
+  
+</style>
 </head>
 <body>
 
@@ -58,7 +155,61 @@
     </div>
   </section>
 
-  <!-- EXEC TEAM -->
+<!-- FOUNDERS -->
+  <section class="team" style="padding-bottom: 0;">
+    <div class="wrap">
+      <div class="section-head reveal">
+        <div class="eyebrow">Leadership</div>
+        <h2>Founders</h2>
+        <p>The original founders of PBAM.</p>
+      </div>
+      <div class="team-grid">
+        <!-- Founder 1: Aaron Hidalgo -->
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="images/Aaron-Hidalgo.jpg" alt="Aaron Hidalgo">
+          </div>
+          <div class="team-name">
+            <span>Aaron Hidalgo</span>
+            <a href="https://www.linkedin.com/in/aihidalgo/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="Aaron Hidalgo LinkedIn">
+              <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
+          <div class="team-role">Founder</div>
+        </div>
+
+        <!-- Founder 2: John Parker -->
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="images/John-Parker.jpg" alt="John Parker">
+          </div>
+          <div class="team-name">
+            <span>John Parker</span>
+            <a href="https://www.linkedin.com/in/johnjparker2005/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="John Parker LinkedIn">
+              <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
+          <div class="team-role">Founder</div>
+        </div>
+
+        <!-- Founder 3: Gabe Garlick -->
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="images/Gabe-Garlick.jpg" alt="Gabe Garlick">
+          </div>
+          <div class="team-name">
+            <span>Gabe Garlick</span>
+            <a href="https://www.linkedin.com/in/gabriel-garlick/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="Gabe Garlick LinkedIn">
+              <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
+          <div class="team-role">Founder</div>
+        </div>
+      </div>
+    </div>
+  </section>
+  
+<!-- EXEC TEAM -->
   <section class="team">
     <div class="wrap">
       <div class="section-head reveal">
@@ -67,45 +218,116 @@
         <p>Leading PBAM this year.</p>
       </div>
       <div class="team-grid">
+        <!-- Aaron Hidalgo -->
         <div class="team-card reveal">
-          <div class="team-photo"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg></div>
-          <div class="team-name">Name Surname</div>
+          <div class="team-photo">
+            <img src="images/Aaron-Hidalgo.jpg" alt="Aaron Hidalgo">
+          </div>
+          <div class="team-name">
+            <span>Aaron Hidalgo</span>
+            <a href="https://www.linkedin.com/in/aihidalgo/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="Aaron Hidalgo LinkedIn">
+              <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
           <div class="team-role">President</div>
         </div>
+
+        <!-- Trinity Drew -->
         <div class="team-card reveal">
-          <div class="team-photo"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg></div>
-          <div class="team-name">Name Surname</div>
+          <div class="team-photo">
+            <img src="images/Trinity-Drew.jpg" alt="Trinity Drew">
+          </div>
+          <div class="team-name">
+            <span>Trinity Drew</span>
+            <a href="https://www.linkedin.com/in/trinity-drew/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="Trinity Drew LinkedIn">
+              <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
+          <div class="team-role">Co-President</div>
+        </div>
+
+        <!-- Aiden Millis -->
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="images/Aiden-Millis.png" alt="Aiden Millis">
+          </div>
+          <div class="team-name">
+            <span>Aiden Millis</span>
+            <a href="https://www.linkedin.com/in/aiden-millis1/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="Aiden Millis LinkedIn">
+              <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
+          <div class="team-role">EVP of Recruitment</div>
+        </div>
+
+        <!-- Nick Yanoti -->
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="images/Nick-Yanoti.png" alt="Nick Yanoti">
+          </div>
+          <div class="team-name">
+            <span>Nick Yanoti</span>
+            <a href="https://www.linkedin.com/in/nicholasyanoti/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="Nick Yanoti LinkedIn">
+              <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
+          <div class="team-role">EVP of Education</div>
+        </div>
+
+        <!-- Summer Ellison -->
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="images/Summer-Ellison.png" alt="Summer Ellison">
+          </div>
+          <div class="team-name">
+            <span>Summer Ellison</span>
+            <a href="https://www.linkedin.com/in/summer-ellison/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="Summer Ellison LinkedIn">
+              <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
+          <div class="team-role">EVP of Marketing</div>
+        </div>
+
+        <!-- Gabe Garlick -->
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="images/Gabe-Garlick.jpg" alt="Gabe Garlick">
+          </div>
+          <div class="team-name">
+            <span>Gabe Garlick</span>
+            <a href="https://www.linkedin.com/in/gabriel-garlick/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="Gabe Garlick LinkedIn">
+              <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
+          <div class="team-role">EVP of Outreach</div>
+        </div>
+
+        <!-- Helena Hanor -->
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="images/Helena-Hanor.jpg" alt="Helena Hanor" class="zoom-in">
+          </div>
+          <div class="team-name">
+            <span>Helena Hanor</span>
+            <a href="https://www.linkedin.com/in/helena-hanor/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="Helena Hanor LinkedIn">
+              <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
+          <div class="team-role">EVP of Curriculum</div>
+        </div>
+
+        <!-- Quinn O'Malley -->
+        <div class="team-card reveal">
+          <div class="team-photo">
+            <img src="images/Quinn-OMalley.png" alt="Quinn O'Malley">
+          </div>
+          <div class="team-name">
+            <span>Quinn O'Malley</span>
+            <a href="https://www.linkedin.com/in/quinn-m-omalley/" target="_blank" rel="noopener noreferrer" class="linkedin-link" aria-label="Quinn O'Malley LinkedIn">
+              <svg class="linkedin-icon" viewBox="0 0 24 24"><path d="M19 3a2 2 0 0 1 2 2v14a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V5a2 2 0 0 1 2-2h14m-.5 15.5v-5.3a3.26 3.26 0 0 0-3.26-3.26c-.85 0-1.84.52-2.28 1.3v-1.11h-2.79v8.37h2.79v-4.93c0-.77.62-1.4 1.39-1.4a1.4 1.4 0 0 1 1.4 1.4v4.93h2.75M6.88 8.56a1.68 1.68 0 0 0 1.68-1.68c0-.93-.75-1.69-1.68-1.69a1.69 1.69 0 0 0-1.69 1.69c0 .93.76 1.68 1.69 1.68m1.39 9.94v-8.37H5.5v8.37h2.77z"/></svg>
+            </a>
+          </div>
           <div class="team-role">Vice President</div>
-        </div>
-        <div class="team-card reveal">
-          <div class="team-photo"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg></div>
-          <div class="team-name">Name Surname</div>
-          <div class="team-role">VP of Recruitment</div>
-        </div>
-        <div class="team-card reveal">
-          <div class="team-photo"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg></div>
-          <div class="team-name">Name Surname</div>
-          <div class="team-role">Director of Education</div>
-        </div>
-        <div class="team-card reveal">
-          <div class="team-photo"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg></div>
-          <div class="team-name">Name Surname</div>
-          <div class="team-role">Director of Corporate Relations</div>
-        </div>
-        <div class="team-card reveal">
-          <div class="team-photo"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg></div>
-          <div class="team-name">Name Surname</div>
-          <div class="team-role">Treasurer</div>
-        </div>
-        <div class="team-card reveal">
-          <div class="team-photo"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg></div>
-          <div class="team-name">Name Surname</div>
-          <div class="team-role">Director of Marketing</div>
-        </div>
-        <div class="team-card reveal">
-          <div class="team-photo"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg></div>
-          <div class="team-name">Name Surname</div>
-          <div class="team-role">Director of Events</div>
         </div>
       </div>
     </div>
