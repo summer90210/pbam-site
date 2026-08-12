@@ -11,7 +11,7 @@
 <link rel="stylesheet" href="styles.css">
 
 <style>
-  /* HERO SECTION WITH DALLAS SKYLINE BACKGROUND */
+  /* HERO SECTION WITH SKYLINE BACKGROUND */
   .page-hero {
     position: relative !important;
     background-image: url('images/dallas-jpm skyline.png') !important;
@@ -20,7 +20,7 @@
     background-repeat: no-repeat !important;
     background-color: transparent !important;
     overflow: hidden;
-    padding: 90px 0 70px 0 !important;
+    padding: 80px 0 60px 0 !important;
     text-align: center !important;
   }
 
@@ -31,7 +31,7 @@
     left: 0;
     width: 100%;
     height: 100%;
-    background-color: rgba(15, 35, 25, 0.70);
+    background-color: rgba(15, 35, 25, 0.72);
     z-index: 1;
   }
 
@@ -54,23 +54,63 @@
     font-size: 1.05rem;
   }
 
+  /* TOPIC TABS FILTER BAR */
+  .filter-bar-section {
+    background-color: #152820;
+    border-bottom: 1px solid rgba(234, 232, 220, 0.15);
+    padding: 14px 0;
+    position: sticky;
+    top: 0;
+    z-index: 10;
+  }
+
+  .filter-tabs {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 12px;
+    flex-wrap: wrap;
+  }
+
+  .tab-btn {
+    background: transparent;
+    border: 1px solid rgba(234, 232, 220, 0.25);
+    color: #EAE8DC;
+    padding: 8px 18px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.85rem;
+    font-weight: 500;
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+    border-radius: 20px;
+    cursor: pointer;
+    transition: all 0.2s ease;
+  }
+
+  .tab-btn:hover,
+  .tab-btn.active {
+    background-color: #EAE8DC;
+    color: #152820;
+    border-color: #EAE8DC;
+  }
+
   /* INSIGHTS GRID & CARDS */
   .insights-section {
-    padding: 60px 0;
+    padding: 50px 0 80px 0;
   }
 
   .insights-grid {
     display: grid;
     grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
     gap: 28px;
-    margin-top: 30px;
+    margin-top: 20px;
   }
 
   .insight-card {
     background-color: #ffffff;
     border: 1px solid rgba(21, 40, 32, 0.12);
     border-radius: 4px;
-    padding: 28px;
+    padding: 26px;
     display: flex;
     flex-direction: column;
     justify-content: space-between;
@@ -84,30 +124,46 @@
     box-shadow: 0 12px 24px rgba(21, 40, 32, 0.08);
   }
 
+  .insight-badge-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
   .insight-source {
-    font-size: 0.75rem;
+    font-size: 0.72rem;
     font-weight: 600;
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: #152820;
-    opacity: 0.7;
-    margin-bottom: 8px;
+    opacity: 0.75;
+  }
+
+  .insight-category {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 2px 8px;
+    background-color: rgba(21, 40, 32, 0.06);
+    border-radius: 3px;
+    color: #152820;
   }
 
   .insight-title {
     font-family: 'Cormorant Garamond', serif;
-    font-size: 1.45rem;
+    font-size: 1.4rem;
     line-height: 1.3;
     font-weight: 600;
     color: #152820;
-    margin-bottom: 12px;
+    margin-bottom: 10px;
   }
 
   .insight-snippet {
-    font-size: 0.95rem;
+    font-size: 0.92rem;
     line-height: 1.5;
     color: #4a5568;
-    margin-bottom: 20px;
+    margin-bottom: 18px;
   }
 
   .insight-meta {
@@ -122,6 +178,13 @@
 
   .insight-link {
     font-weight: 500;
+    color: #152820;
+  }
+
+  .loading-state {
+    text-align: center;
+    padding: 40px;
+    font-size: 1.1rem;
     color: #152820;
   }
 </style>
@@ -169,93 +232,28 @@
   <section class="page-hero">
     <div class="wrap page-hero-inner">
       <h1>Market Insights</h1>
-      <p>Curated headlines, macroeconomic perspectives, and asset management trends from top financial publications.</p>
+      <p>Live financial headlines, market analyses, and central banking perspectives updated daily from top outlets.</p>
     </div>
   </section>
+
+  <!-- TOPIC CATEGORY TABS -->
+  <div class="filter-bar-section">
+    <div class="wrap">
+      <div class="filter-tabs">
+        <button class="tab-btn active" data-filter="all">All Stories</button>
+        <button class="tab-btn" data-filter="markets">Markets A.M. / P.M.</button>
+        <button class="tab-btn" data-filter="investment">Investment & Wealth</button>
+        <button class="tab-btn" data-filter="economy">Economy & Macro</button>
+        <button class="tab-btn" data-filter="fed">Central Banking & Fed</button>
+      </div>
+    </div>
+  </div>
 
   <!-- INSIGHTS FEED -->
   <section class="insights-section">
     <div class="wrap">
       <div id="news-feed" class="insights-grid">
-        
-        <!-- CARD 1 -->
-        <a href="https://privatebank.jpmorgan.com/nam/en/insights/markets-and-investing/tmt/ai-s-next-act-doesnt-have-to-choose" target="_blank" rel="noopener noreferrer" class="insight-card">
-          <div>
-            <div class="insight-source">Investment Strategy</div>
-            <div class="insight-title">AI’s Next Act Doesn’t Have to Choose</div>
-            <div class="insight-snippet">A shift is underway as semiconductor and hyperscaler stocks rally together, reflecting a broadening belief in artificial intelligence infrastructure.</div>
-          </div>
-          <div class="insight-meta">
-            <span>Aug 2026</span>
-            <span class="insight-link">Read Article &rarr;</span>
-          </div>
-        </a>
-
-        <!-- CARD 2 -->
-        <a href="https://privatebank.jpmorgan.com/nam/en/insights/markets-and-investing/investing-in-the-space-economy-from-sci-fi-to-reality" target="_blank" rel="noopener noreferrer" class="insight-card">
-          <div>
-            <div class="insight-source">Markets & Investing</div>
-            <div class="insight-title">Investing in the Space Economy: From Sci-Fi to Reality</div>
-            <div class="insight-snippet">A strategic roadmap exploring commercial opportunities across satellite networks, defense systems, and orbital infrastructure beyond primary launch providers.</div>
-          </div>
-          <div class="insight-meta">
-            <span>Aug 2026</span>
-            <span class="insight-link">Read Article &rarr;</span>
-          </div>
-        </a>
-
-        <!-- CARD 3 -->
-        <a href="https://privatebank.jpmorgan.com/nam/en/insights/markets-and-investing/tmt/rotation-not-reckoning-whats-testing-the-ai-trade" target="_blank" rel="noopener noreferrer" class="insight-card">
-          <div>
-            <div class="insight-source">Macro Trends</div>
-            <div class="insight-title">Rotation, Not Reckoning: What’s Testing the AI Trade?</div>
-            <div class="insight-snippet">Investors are shifting away from high-concentration tech trades into overlooked sectors as they seek tangible proof of capital returns.</div>
-          </div>
-          <div class="insight-meta">
-            <span>Jul 2026</span>
-            <span class="insight-link">Read Article &rarr;</span>
-          </div>
-        </a>
-
-        <!-- CARD 4 -->
-        <a href="https://privatebank.jpmorgan.com/nam/en/insights/markets-and-investing/why-infrastructure-now" target="_blank" rel="noopener noreferrer" class="insight-card">
-          <div>
-            <div class="insight-source">Alternative Investments</div>
-            <div class="insight-title">Why Infrastructure Now? Defensive Allocation</div>
-            <div class="insight-snippet">Infrastructure assets offer inflation-sensitive cash flows and stable income yields, serving as a compelling complement to gold in volatile market regimes.</div>
-          </div>
-          <div class="insight-meta">
-            <span>Jul 2026</span>
-            <span class="insight-link">Read Article &rarr;</span>
-          </div>
-        </a>
-
-        <!-- CARD 5 -->
-        <a href="https://privatebank.jpmorgan.com/nam/en/insights/markets-and-investing/the-3-jobs-of-cash-is-yours-purposeful-or-parked" target="_blank" rel="noopener noreferrer" class="insight-card">
-          <div>
-            <div class="insight-source">Wealth Planning</div>
-            <div class="insight-title">The 3 Jobs of Cash: Is Yours Purposeful or Parked?</div>
-            <div class="insight-snippet">Spend, protect, and invest: Put parked liquid cash to work by aligning specific pools of capital directly to long-term wealth objectives.</div>
-          </div>
-          <div class="insight-meta">
-            <span>Jul 2026</span>
-            <span class="insight-link">Read Article &rarr;</span>
-          </div>
-        </a>
-
-        <!-- CARD 6 -->
-        <a href="https://privatebank.jpmorgan.com/nam/en/insights/latest-and-featured/mid-year-outlook" target="_blank" rel="noopener noreferrer" class="insight-card">
-          <div>
-            <div class="insight-source">Global Economy</div>
-            <div class="insight-title">2026 Mid-Year Outlook: Promise and Pressure</div>
-            <div class="insight-snippet">Key structural themes for global asset managers: navigate geopolitical fragmentation, persistent inflation drivers, and AI productivity gains.</div>
-          </div>
-          <div class="insight-meta">
-            <span>May 2026</span>
-            <span class="insight-link">Read Article &rarr;</span>
-          </div>
-        </a>
-
+        <div class="loading-state">Fetching live headlines...</div>
       </div>
     </div>
   </section>
@@ -280,8 +278,8 @@
         <div class="foot-col">
           <h4>Connect</h4>
           <a href="recruitment.html">Recruitment</a>
-          <a href="https://www.linkedin.com/company/pb-am/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://www.instagram.com/smu.pbam/" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="http://127.0.0.1:5500/index.html3" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="http://127.0.0.1:5500/index.html4" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
         <div class="foot-col">
           <h4>Southern Methodist University</h4>
@@ -295,6 +293,134 @@
     </div>
   </div>
 </footer>
+
+<!-- MULTI-SOURCE RSS FETCH ENGINE & CATEGORY FILTERING -->
+<script>
+  let allArticles = [];
+
+  // Configured feeds: WSJ custom RSS mapped strictly to 'markets'
+  const FEEDS = [
+    { source: 'Wall Street Journal', topic: 'markets', url: 'https://zapier.com/engine/rss/28527479/pbam-markets-wsj' },
+    { source: 'CNBC', topic: 'markets-general', url: 'https://search.cnbc.com/rs/search/combined:rss?q=markets&partnerId=2000' },
+    { source: 'CNBC', topic: 'economy', url: 'https://search.cnbc.com/rs/search/combined:rss?q=economy&partnerId=2000' },
+    { source: 'Financial Times', topic: 'markets-general', url: 'https://www.ft.com/markets?format=rss' },
+    { source: 'Financial Times', topic: 'economy', url: 'https://www.ft.com/global-economy?format=rss' },
+    { source: 'Central Banking', topic: 'fed', url: 'https://news.google.com/rss/search?q="Federal+Reserve"+OR+"Central+Banking"+OR+"Monetary+Policy"&hl=en-US&gl=US&ceid=US:en' },
+    { source: 'J.P. Morgan Private Bank', topic: 'investment', url: 'https://news.google.com/rss/search?q="J.P.+Morgan+Private+Bank"+insights&hl=en-US&gl=US&ceid=US:en' }
+  ];
+
+  async function loadAllFeeds() {
+    allArticles = [];
+    const now = new Date();
+    const fourteenDaysInMs = 14 * 24 * 60 * 60 * 1000;
+
+    const fetchPromises = FEEDS.map(async (feed) => {
+      try {
+        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
+        const res = await fetch(apiUrl);
+        const data = await res.json();
+
+        if (data.status === 'ok' && data.items) {
+          data.items.forEach(item => {
+            const articleDate = new Date(item.pubDate);
+            
+            // Keep test fallback or items published within the last 14 days
+            const isRecent = (now - articleDate) <= fourteenDaysInMs || item.pubDate === undefined || isNaN(articleDate.getTime());
+
+            if (isRecent) {
+              const tempDiv = document.createElement('div');
+              tempDiv.innerHTML = item.description || item.content || '';
+              const snippet = (tempDiv.textContent || tempDiv.innerText || '').trim().substring(0, 130);
+
+              allArticles.push({
+                title: item.title,
+                link: item.link || 'https://www.wsj.com',
+                source: feed.source,
+                topic: feed.topic,
+                date: isNaN(articleDate.getTime()) ? new Date(0) : articleDate,
+                dateStr: isNaN(articleDate.getTime()) ? 'Recent' : articleDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
+                snippet: snippet ? snippet + '...' : 'Click to read full story on original source.'
+              });
+            }
+          });
+        }
+      } catch (err) {
+        console.warn(`Failed loading feed: ${feed.source}`, err);
+      }
+    });
+
+    await Promise.all(fetchPromises);
+
+    // Sort all fetched articles by publication date (newest first)
+    allArticles.sort((a, b) => b.date - a.date);
+
+    if (allArticles.length === 0) {
+      renderFallbackArticles();
+    } else {
+      renderArticles('all');
+    }
+  }
+
+  function renderArticles(filterCategory) {
+    const feedContainer = document.getElementById('news-feed');
+    feedContainer.innerHTML = '';
+
+    const filtered = filterCategory === 'all' 
+      ? allArticles 
+      : allArticles.filter(a => a.topic === filterCategory);
+
+    if (filtered.length === 0) {
+      feedContainer.innerHTML = '<div class="loading-state">No stories found in this category from the past 14 days.</div>';
+      return;
+    }
+
+    filtered.forEach(item => {
+      const card = document.createElement('a');
+      card.className = 'insight-card';
+      card.href = item.link;
+      card.target = '_blank';
+      card.rel = 'noopener noreferrer';
+
+      const categoryDisplay = item.topic === 'markets' ? 'Markets A.M. / P.M.' : (item.topic === 'fed' ? 'Central Banking' : (item.topic === 'markets-general' ? 'Markets' : item.topic));
+
+      card.innerHTML = `
+        <div>
+          <div class="insight-badge-row">
+            <span class="insight-source">${item.source}</span>
+            <span class="insight-category">${categoryDisplay}</span>
+          </div>
+          <div class="insight-title">${item.title}</div>
+          <div class="insight-snippet">${item.snippet}</div>
+        </div>
+        <div class="insight-meta">
+          <span>${item.dateStr}</span>
+          <span class="insight-link">Read Story &rarr;</span>
+        </div>
+      `;
+
+      feedContainer.appendChild(card);
+    });
+  }
+
+  function renderFallbackArticles() {
+    allArticles = [
+      { title: "Markets A.M.: Treasury Yields Hold Steady Ahead of Rate Guidance", link: "https://www.wsj.com", source: "Wall Street Journal", topic: "markets", dateStr: "Today", snippet: "U.S. equity futures fluctuated as investors parsed inflation metrics and bond market yields." }
+    ];
+    renderArticles('all');
+  }
+
+  // Setup tab filter listeners
+  document.querySelectorAll('.tab-btn').forEach(btn => {
+    btn.addEventListener('click', (e) => {
+      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
+      e.target.classList.add('active');
+      const filter = e.target.getAttribute('data-filter');
+      renderArticles(filter);
+    });
+  });
+
+  document.addEventListener('DOMContentLoaded', loadAllFeeds);
+</script>
 
 <script src="script.js"></script>
 </body>
