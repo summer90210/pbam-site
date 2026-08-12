@@ -54,7 +54,7 @@
     font-size: 1.05rem;
   }
 
-  /* TOPIC TABS FILTER BAR */
+  /* TOPIC TABS & SUB-FILTER BAR INLINE LAYOUT */
   .filter-bar-section {
     background-color: #152820;
     border-bottom: 1px solid rgba(234, 232, 220, 0.15);
@@ -64,11 +64,18 @@
     z-index: 10;
   }
 
+  .filter-wrapper {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    gap: 16px;
+    flex-wrap: wrap;
+  }
+
   .filter-tabs {
     display: flex;
-    justify-content: center;
     align-items: center;
-    gap: 12px;
+    gap: 10px;
     flex-wrap: wrap;
   }
 
@@ -92,6 +99,49 @@
     background-color: #EAE8DC;
     color: #152820;
     border-color: #EAE8DC;
+  }
+
+  /* CLEAN INLINE TOPIC DROPDOWN */
+  .subfilter-container {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+    margin-left: auto;
+  }
+
+  .subfilter-label {
+    color: rgba(234, 232, 220, 0.7);
+    font-size: 0.8rem;
+    font-family: 'Jost', sans-serif;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+  }
+
+  .subfilter-select {
+    background-color: rgba(234, 232, 220, 0.1);
+    color: #EAE8DC;
+    border: 1px solid rgba(234, 232, 220, 0.3);
+    border-radius: 20px;
+    padding: 7px 16px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.82rem;
+    font-weight: 500;
+    letter-spacing: 0.03em;
+    cursor: pointer;
+    outline: none;
+    transition: all 0.2s ease;
+  }
+
+  .subfilter-select:hover,
+  .subfilter-select:focus {
+    background-color: rgba(234, 232, 220, 0.2);
+    border-color: #EAE8DC;
+  }
+
+  .subfilter-select option {
+    background-color: #152820;
+    color: #EAE8DC;
   }
 
   /* INSIGHTS GRID & CARDS */
@@ -137,7 +187,7 @@
     text-transform: uppercase;
     letter-spacing: 0.08em;
     color: #152820;
-    opacity: 0.75;
+    opacity: 0.85;
   }
 
   .insight-category {
@@ -236,15 +286,22 @@
     </div>
   </section>
 
-  <!-- TOPIC CATEGORY TABS -->
+  <!-- TOPIC TABS & INLINE SUB-TOPIC FILTER BAR -->
   <div class="filter-bar-section">
-    <div class="wrap">
+    <div class="wrap filter-wrapper">
       <div class="filter-tabs">
         <button class="tab-btn active" data-filter="all">All Stories</button>
         <button class="tab-btn" data-filter="markets">Markets A.M. / P.M.</button>
         <button class="tab-btn" data-filter="investment">Investment & Wealth</button>
         <button class="tab-btn" data-filter="economy">Economy & Macro</button>
         <button class="tab-btn" data-filter="fed">Central Banking & Fed</button>
+      </div>
+
+      <div class="subfilter-container">
+        <span class="subfilter-label">Topic Filter:</span>
+        <select id="subtopicSelect" class="subfilter-select">
+          <option value="all">All Topics</option>
+        </select>
       </div>
     </div>
   </div>
@@ -278,8 +335,8 @@
         <div class="foot-col">
           <h4>Connect</h4>
           <a href="recruitment.html">Recruitment</a>
-          <a href="http://127.0.0.1:5500/index.html3" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="http://127.0.0.1:5500/index.html4" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
         <div class="foot-col">
           <h4>Southern Methodist University</h4>
@@ -294,25 +351,48 @@
   </div>
 </footer>
 
-<!-- MULTI-SOURCE RSS FETCH ENGINE & CATEGORY FILTERING -->
+<!-- MULTI-SOURCE RSS FETCH ENGINE WITH DIFFERENTIAL TIME CUTOFFS -->
 <script>
   let allArticles = [];
 
-  // Configured feeds: WSJ custom RSS mapped strictly to 'markets'
   const FEEDS = [
-    { source: 'Wall Street Journal', topic: 'markets', url: 'https://zapier.com/engine/rss/28527479/pbam-markets-wsj' },
-    { source: 'CNBC', topic: 'markets-general', url: 'https://search.cnbc.com/rs/search/combined:rss?q=markets&partnerId=2000' },
-    { source: 'CNBC', topic: 'economy', url: 'https://search.cnbc.com/rs/search/combined:rss?q=economy&partnerId=2000' },
-    { source: 'Financial Times', topic: 'markets-general', url: 'https://www.ft.com/markets?format=rss' },
-    { source: 'Financial Times', topic: 'economy', url: 'https://www.ft.com/global-economy?format=rss' },
-    { source: 'Central Banking', topic: 'fed', url: 'https://news.google.com/rss/search?q="Federal+Reserve"+OR+"Central+Banking"+OR+"Monetary+Policy"&hl=en-US&gl=US&ceid=US:en' },
-    { source: 'J.P. Morgan Private Bank', topic: 'investment', url: 'https://news.google.com/rss/search?q="J.P.+Morgan+Private+Bank"+insights&hl=en-US&gl=US&ceid=US:en' }
+    // Wall Street Journal - Markets (20-day cutoff topic)
+    { source: 'Wall Street Journal', topic: 'markets', badgeTopic: 'Markets A.M. / P.M.', url: 'https://zapier.com/engine/rss/28527479/pbam-markets-wsj' },
+    
+    // Standard Topics (7-day rolling window)
+    { source: 'Wall Street Journal', topic: 'fed', badgeTopic: 'Central Banking', url: 'https://news.google.com/rss/search?q=site:wsj.com+"Federal+Reserve"+OR+"Central+Bank"-politics&hl=en-US&gl=US&ceid=US:en' },
+    { source: 'Wall Street Journal', topic: 'economy', badgeTopic: 'Economy', url: 'https://feeds.a.dj.com/rss/RSSWSJDIEconomics.xml' },
+    { source: 'Wall Street Journal', topic: 'economy', badgeTopic: 'Consumers', url: 'https://news.google.com/rss/search?q=site:wsj.com+consumer+spending+economy-politics&hl=en-US&gl=US&ceid=US:en' },
+    { source: 'Wall Street Journal', topic: 'economy', badgeTopic: 'Housing', url: 'https://news.google.com/rss/search?q=site:wsj.com+housing+real+estate+economy-politics&hl=en-US&gl=US&ceid=US:en' },
+    { source: 'Wall Street Journal', topic: 'economy', badgeTopic: 'Jobs', url: 'https://news.google.com/rss/search?q=site:wsj.com+jobs+employment+labor-politics&hl=en-US&gl=US&ceid=US:en' },
+    { source: 'Wall Street Journal', topic: 'economy', badgeTopic: 'Trade', url: 'https://news.google.com/rss/search?q=site:wsj.com+trade+imports+exports-politics&hl=en-US&gl=US&ceid=US:en' },
+
+    // Financial Times Feeds (7-day rolling window)
+    { source: 'Financial Times', topic: 'economy', badgeTopic: 'US Economy', url: 'https://www.ft.com/us-economy?format=rss' },
+    { source: 'Financial Times', topic: 'economy', badgeTopic: 'Global Economy', url: 'https://www.ft.com/global-economy?format=rss' },
+    { source: 'Financial Times', topic: 'economy', badgeTopic: 'Emerging Markets', url: 'https://www.ft.com/emerging-markets?format=rss' },
+    { source: 'Financial Times', topic: 'investment', badgeTopic: 'Tech', url: 'https://www.ft.com/technology?format=rss' },
+    { source: 'Financial Times', topic: 'investment', badgeTopic: 'Companies', url: 'https://www.ft.com/companies?format=rss' },
+    
+    // Central Banking Policy & J.P. Morgan Insights (7-day rolling window)
+    { source: 'Federal Reserve Policy', topic: 'fed', badgeTopic: 'Monetary Policy', url: 'https://news.google.com/rss/search?q="Federal+Reserve"+OR+"Monetary+Policy"+-politics+-election&hl=en-US&gl=US&ceid=US:en' },
+    { source: 'J.P. Morgan Private Bank', topic: 'investment', badgeTopic: 'Wealth & Strategy', url: 'https://news.google.com/rss/search?q="J.P.+Morgan+Private+Bank"+insights&hl=en-US&gl=US&ceid=US:en' }
   ];
+
+  const POLITICAL_KEYWORDS = ['election', 'trump', 'biden', 'vance', 'democrat', 'republican', 'campaign', 'vote', 'polling', 'congressional', 'parliament'];
+
+  function cleanTitle(rawTitle) {
+    if (!rawTitle) return '';
+    return rawTitle.replace(/\s*-\s*[^-]+$/, '').trim();
+  }
 
   async function loadAllFeeds() {
     allArticles = [];
     const now = new Date();
-    const fourteenDaysInMs = 14 * 24 * 60 * 60 * 1000;
+    
+    // Time windows in milliseconds
+    const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000;
+    const twentyDaysInMs = 20 * 24 * 60 * 60 * 1000;
 
     const fetchPromises = FEEDS.map(async (feed) => {
       try {
@@ -323,20 +403,26 @@
         if (data.status === 'ok' && data.items) {
           data.items.forEach(item => {
             const articleDate = new Date(item.pubDate);
+            const cleanedTitle = cleanTitle(item.title);
+            const titleLower = cleanedTitle.toLowerCase();
             
-            // Keep test fallback or items published within the last 14 days
-            const isRecent = (now - articleDate) <= fourteenDaysInMs || item.pubDate === undefined || isNaN(articleDate.getTime());
+            const isPolitical = POLITICAL_KEYWORDS.some(keyword => titleLower.includes(keyword));
 
-            if (isRecent) {
+            // Markets tab retains 20 days; all other tabs enforce a 7-day cutoff
+            const maxAllowedAgeMs = (feed.topic === 'markets') ? twentyDaysInMs : sevenDaysInMs;
+            const isRecent = (now - articleDate) <= maxAllowedAgeMs || item.pubDate === undefined || isNaN(articleDate.getTime());
+
+            if (isRecent && !isPolitical) {
               const tempDiv = document.createElement('div');
               tempDiv.innerHTML = item.description || item.content || '';
               const snippet = (tempDiv.textContent || tempDiv.innerText || '').trim().substring(0, 130);
 
               allArticles.push({
-                title: item.title,
+                title: cleanedTitle,
                 link: item.link || 'https://www.wsj.com',
                 source: feed.source,
                 topic: feed.topic,
+                badgeTopic: feed.badgeTopic,
                 date: isNaN(articleDate.getTime()) ? new Date(0) : articleDate,
                 dateStr: isNaN(articleDate.getTime()) ? 'Recent' : articleDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
                 snippet: snippet ? snippet + '...' : 'Click to read full story on original source.'
@@ -351,26 +437,49 @@
 
     await Promise.all(fetchPromises);
 
-    // Sort all fetched articles by publication date (newest first)
+    // Sort globally by date (newest first)
     allArticles.sort((a, b) => b.date - a.date);
 
     if (allArticles.length === 0) {
       renderFallbackArticles();
     } else {
-      renderArticles('all');
+      updateSubtopicDropdown('all');
+      renderArticles('all', 'all');
     }
   }
 
-  function renderArticles(filterCategory) {
+  function updateSubtopicDropdown(filterCategory) {
+    const select = document.getElementById('subtopicSelect');
+    select.innerHTML = '<option value="all">All Topics</option>';
+
+    const categoryArticles = filterCategory === 'all'
+      ? allArticles
+      : allArticles.filter(a => a.topic === filterCategory);
+
+    const uniqueTopics = [...new Set(categoryArticles.map(a => a.badgeTopic))].sort();
+
+    uniqueTopics.forEach(topic => {
+      const option = document.createElement('option');
+      option.value = topic;
+      option.textContent = topic;
+      select.appendChild(option);
+    });
+  }
+
+  function renderArticles(filterCategory, filterSubtopic = 'all') {
     const feedContainer = document.getElementById('news-feed');
     feedContainer.innerHTML = '';
 
-    const filtered = filterCategory === 'all' 
+    let filtered = filterCategory === 'all' 
       ? allArticles 
       : allArticles.filter(a => a.topic === filterCategory);
 
+    if (filterSubtopic !== 'all') {
+      filtered = filtered.filter(a => a.badgeTopic === filterSubtopic);
+    }
+
     if (filtered.length === 0) {
-      feedContainer.innerHTML = '<div class="loading-state">No stories found in this category from the past 14 days.</div>';
+      feedContainer.innerHTML = '<div class="loading-state">No stories found matching this topic filter.</div>';
       return;
     }
 
@@ -381,13 +490,11 @@
       card.target = '_blank';
       card.rel = 'noopener noreferrer';
 
-      const categoryDisplay = item.topic === 'markets' ? 'Markets A.M. / P.M.' : (item.topic === 'fed' ? 'Central Banking' : (item.topic === 'markets-general' ? 'Markets' : item.topic));
-
       card.innerHTML = `
         <div>
           <div class="insight-badge-row">
             <span class="insight-source">${item.source}</span>
-            <span class="insight-category">${categoryDisplay}</span>
+            <span class="insight-category">${item.badgeTopic}</span>
           </div>
           <div class="insight-title">${item.title}</div>
           <div class="insight-snippet">${item.snippet}</div>
@@ -404,19 +511,27 @@
 
   function renderFallbackArticles() {
     allArticles = [
-      { title: "Markets A.M.: Treasury Yields Hold Steady Ahead of Rate Guidance", link: "https://www.wsj.com", source: "Wall Street Journal", topic: "markets", dateStr: "Today", snippet: "U.S. equity futures fluctuated as investors parsed inflation metrics and bond market yields." }
+      { title: "Markets A.M.: Treasury Yields Hold Steady Ahead of Rate Guidance", link: "https://www.wsj.com", source: "Wall Street Journal", topic: "markets", badgeTopic: "Markets A.M. / P.M.", dateStr: "Today", snippet: "U.S. equity futures fluctuated as investors parsed inflation metrics and bond market yields." }
     ];
-    renderArticles('all');
+    updateSubtopicDropdown('all');
+    renderArticles('all', 'all');
   }
 
-  // Setup tab filter listeners
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
       document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
       e.target.classList.add('active');
-      const filter = e.target.getAttribute('data-filter');
-      renderArticles(filter);
+      const categoryFilter = e.target.getAttribute('data-filter');
+      
+      updateSubtopicDropdown(categoryFilter);
+      renderArticles(categoryFilter, 'all');
     });
+  });
+
+  document.getElementById('subtopicSelect').addEventListener('change', (e) => {
+    const activeTab = document.querySelector('.tab-btn.active').getAttribute('data-filter');
+    const selectedSubtopic = e.target.value;
+    renderArticles(activeTab, selectedSubtopic);
   });
 
   document.addEventListener('DOMContentLoaded', loadAllFeeds);
