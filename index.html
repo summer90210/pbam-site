@@ -1,6 +1,12 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  
+  <title>PBAM — Private Banking & Asset Management | SMU</title>
+  <link rel="stylesheet" href="styles.css">
+</head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>PBAM — Private Banking & Asset Management | SMU</title>
@@ -98,6 +104,141 @@
       padding: 60px 20px;
     }
   }
+
+  /* ==========================================================================
+   RESPONSIVE DESIGN & MOBILE LAYOUT ADJUSTMENTS
+   ========================================================================== */
+
+/* Fluid Typography & Container Constraints */
+html {
+  font-size: 16px;
+  -webkit-text-size-adjust: 100%;
+}
+
+img, svg, video {
+  max-width: 100%;
+  height: auto;
+}
+
+.wrap {
+  width: 90%;
+  max-width: 1200px;
+  margin: 0 auto;
+}
+
+/* --- TABLETS & SMALL DESKTOPS (<= 1024px) --- */
+@media screen and (max-width: 1024px) {
+  /* Navigation */
+  .nav-links {
+    gap: 20px;
+  }
+  .nav-links a {
+    font-size: 0.85rem;
+  }
+  
+  /* Hero Sections */
+  .page-hero h1 {
+    font-size: 2.8rem !important;
+  }
+  .page-hero p {
+    font-size: 1rem;
+    padding: 0 15px;
+  }
+
+  /* Grid Layouts */
+  .insights-grid {
+    grid-template-columns: repeat(2, 1fr);
+    gap: 20px;
+  }
+}
+
+/* --- TABLETS PORTRAIT & LARGE PHONES (<= 768px) --- */
+@media screen and (max-width: 768px) {
+  /* Hero Styling */
+  .page-hero {
+    padding: 60px 0 40px 0 !important;
+  }
+  
+  .page-hero h1 {
+    font-size: 2.2rem !important;
+  }
+
+  /* Filter Bar & Dropdown Adjustments */
+  .filter-wrapper {
+    flex-direction: column;
+    align-items: stretch;
+    gap: 12px;
+  }
+
+  .filter-tabs {
+    justify-content: flex-start;
+    overflow-x: auto;
+    white-space: nowrap;
+    padding-bottom: 6px;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tab-btn {
+    padding: 6px 14px;
+    font-size: 0.78rem;
+    flex-shrink: 0;
+  }
+
+  .subfilter-container {
+    margin-left: 0;
+    justify-content: space-between;
+    width: 100%;
+  }
+
+  .subfilter-select {
+    width: 60%;
+  }
+
+  /* Grid Adjustments */
+  .insights-grid {
+    grid-template-columns: 1fr;
+  }
+
+  /* Article Popup Modal */
+  .modal-container {
+    max-height: 90vh;
+    margin: 10px;
+  }
+
+  .modal-header, 
+  .modal-body {
+    padding: 20px;
+  }
+
+  .modal-title {
+    font-size: 1.4rem;
+  }
+}
+
+/* --- MOBILE PHONES (<= 480px) --- */
+@media screen and (max-width: 480px) {
+  .page-hero h1 {
+    font-size: 1.8rem !important;
+  }
+
+  .subfilter-container {
+    flex-direction: column;
+    align-items: flex-start;
+    gap: 6px;
+  }
+
+  .subfilter-select {
+    width: 100%;
+  }
+
+  .insight-card {
+    padding: 18px;
+  }
+
+  .insight-title {
+    font-size: 1.25rem;
+  }
+}
 </style>
 
   <section class="hero">
@@ -112,7 +253,7 @@
     <div class="wrap hero-inner">
       <div class="eyebrow on-dark"><span class="rule"></span>Southern Methodist University</div>
       <h1>Private Banking &amp;<br><em>Asset Management</em></h1>
-      <p class="hero-sub">A student-run club at the intersection of capital markets and client services, preparing members for the evolving world of private wealth & asset management — through educational sessions and portfolio construction.</p>
+      <p class="hero-sub">A student-run club at the intersection of capital markets and client services, preparing members for the evolving world of private wealth & asset management through educational sessions and portfolio construction.</p>
       <div class="hero-actions">
         <a href="recruitment.html" class="btn btn-primary">Join PBAM</a>
         <a href="#about" class="btn btn-ghost">Learn More</a>
