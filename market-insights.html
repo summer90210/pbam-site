@@ -1,3 +1,4 @@
+HTML
 <!DOCTYPE html>
 <html lang="en">
 <head>
@@ -252,6 +253,105 @@
     grid-column: 1 / -1;
   }
 
+  /* RESOURCE CARD STYLING */
+  .resource-card {
+    background-color: #ffffff;
+    border: 1px solid rgba(21, 40, 32, 0.12);
+    border-radius: 4px;
+    padding: 26px;
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    transition: transform 0.25s ease, box-shadow 0.25s ease;
+  }
+
+  .resource-card:hover {
+    transform: translateY(-4px);
+    box-shadow: 0 12px 24px rgba(21, 40, 32, 0.08);
+  }
+
+  .resource-header-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .resource-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.45rem;
+    line-height: 1.25;
+    font-weight: 600;
+    color: #152820;
+    margin: 0;
+  }
+
+  .resource-type-badge {
+    font-size: 0.68rem;
+    font-weight: 600;
+    text-transform: uppercase;
+    padding: 3px 10px;
+    border-radius: 3px;
+    letter-spacing: 0.05em;
+    white-space: nowrap;
+    flex-shrink: 0;
+  }
+
+  .badge-podcast {
+    background-color: rgba(21, 40, 32, 0.08);
+    color: #152820;
+  }
+
+  .badge-book {
+    background-color: #152820;
+    color: #EAE8DC;
+  }
+
+  .resource-image-wrapper {
+    width: 100%;
+    margin-bottom: 16px;
+    overflow: hidden;
+    border-radius: 4px;
+    background-color: #f7f7f7;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+
+  .resource-image {
+    width: 100%;
+    height: 320px;
+    object-fit: cover;
+    display: block;
+  }
+
+  .resource-desc {
+    font-size: 0.92rem;
+    line-height: 1.5;
+    color: #4a5568;
+    margin-bottom: 20px;
+  }
+
+  .resource-action-link {
+    display: inline-flex;
+    align-items: center;
+    gap: 6px;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #152820;
+    text-decoration: none;
+    text-transform: uppercase;
+    letter-spacing: 0.05em;
+    border-top: 1px solid rgba(0,0,0,0.06);
+    padding-top: 14px;
+    margin-top: auto;
+  }
+
+  .resource-action-link:hover {
+    text-decoration: underline;
+  }
+
   /* ARTICLE POPUP MODAL STYLES */
   .modal-overlay {
     position: fixed;
@@ -457,12 +557,12 @@
         <button class="tab-btn" data-filter="markets">Markets A.M. / P.M.</button>
         <button class="tab-btn" data-filter="investment">Investments & Wealth</button>
         <button class="tab-btn" data-filter="economy">Economy & Macro</button>
-        <button class="tab-btn" data-filter="fed">Central Banking</button>
-        <button class="tab-btn" data-filter="economic-calendar">Economic Calendar</button>
+        <button class="tab-btn" data-filter="fed">Central Banking & Fed</button>
+        <button class="tab-btn" data-filter="resources">Resources</button>
       </div>
 
-      <div class="subfilter-container">
-        <span class="subfilter-label">Topic Filter:</span>
+      <div class="subfilter-container" id="subfilterWrapper">
+        <span class="subfilter-label" id="subfilterLabel">Topic Filter:</span>
         <select id="subtopicSelect" class="subfilter-select">
           <option value="all">All Topics</option>
         </select>
@@ -470,11 +570,17 @@
     </div>
   </div>
 
-  <!-- INSIGHTS FEED -->
+  <!-- INSIGHTS FEED & RESOURCES VIEW -->
   <section class="insights-section">
     <div class="wrap">
+      <!-- MAIN NEWS FEED -->
       <div id="news-feed" class="insights-grid">
         <div class="loading-state">Fetching live headlines...</div>
+      </div>
+
+      <!-- CURATED RESOURCES SECTION -->
+      <div id="resources-feed" class="insights-grid" style="display: none;">
+        <!-- Rendered dynamically via JavaScript below -->
       </div>
     </div>
   </section>
@@ -536,16 +642,34 @@
   </div>
 </footer>
 
-<!-- MULTI-SOURCE RSS FETCH ENGINE -->
+<!-- JavaScript Engine -->
 <script>
   let allArticles = [];
 
+  // CURATED RESOURCES LIST (8 PODCASTS & 4 BOOKS)
+  const CURATED_RESOURCES = [
+    // 8 PODCASTS
+    { type: 'podcast', title: 'Barrons Live', image: 'images/Barrons Live.png', link: 'https://podcasts.apple.com/us/podcast/barrons-live/id1523729084', description: 'Host: Barrons | Investing' },
+    { type: 'podcast', title: 'Exceptional Advisor', image: 'images/Exceptional Advisor.png', link: 'https://podcasts.apple.com/us/podcast/the-exceptional-advisor-podcast/id1436637266', description: 'Host: Investments & Wealth Institute | Financial Advising' },
+    { type: 'podcast', title: 'Stock Market Today', image: 'images/Stock Market Today.png', link: 'https://podcasts.apple.com/us/podcast/stock-market-today-with-ibd/id1685322096', description: 'Host: Investors Business | Investing' },
+    { type: 'podcast', title: 'The Markets', image: 'images/The Markets.png', link: 'https://podcasts.apple.com/us/podcast/the-markets/id1683802600', description: 'Host: Goldman Sachs | Financial Markets' },
+    { type: 'podcast', title: 'Bloomberg Intelligence', image: 'images/Bloomberg Intelligence.png', link: 'https://podcasts.apple.com/us/podcast/bloomberg-intelligence/id326301337', description: 'Host: Bloomberg | Business and Finance' },
+    { type: 'podcast', title: 'Thoughts On The Market', image: 'images/Thoughts On The Market.png', link: 'https://podcasts.apple.com/us/podcast/thoughts-on-the-market/id1466686717', description: 'Host: Morgan Stanley | Financial Markets' },
+    { type: 'podcast', title: 'Schwab Market', image: 'images/Schwab Market Update.png', link: 'https://podcasts.apple.com/us/podcast/schwab-market-update-audio/id1421968445', description: 'Host: Charles SchwabFinancial Markets' },
+    { type: 'podcast', title: 'Wall Street Breakfast', image: 'images/Wall Street Breakfast.png', link: 'https://podcasts.apple.com/us/podcast/wall-street-breakfast/id1358381502', description: 'Host: Seeking Alpha | Business and Finance' },
+
+    // 4 BOOKS
+    { type: 'book', title: 'Book Title 1', image: '', link: '#', description: 'Add book author, key topics, and overview here.' },
+    { type: 'book', title: 'Book Title 2', image: '', link: '#', description: 'Add book author, key topics, and overview here.' },
+    { type: 'book', title: 'Book Title 3', image: '', link: '#', description: 'Add book author, key topics, and overview here.' },
+    { type: 'book', title: 'Book Title 4', image: '', link: '#', description: 'Add book author, key topics, and overview here.' }
+  ];
+
   // Per-Tab Rolling Window Configuration (in Days)
   const TAB_ROLLING_WINDOWS = {
-    'investment': 7,          // Investment & Wealth: 7 days
-    'economy': 14,            // Economy & Macro: 14 days
-    'fed': 14,                // Central Banks & Fed: 14 days
-    'economic-calendar': 30   // Economic Calendar: 30 days
+    'investment': 7,    // Investment & Wealth: 7 days
+    'economy': 14,      // Economy & Macro: 14 days
+    'fed': 14           // Central Banks & Fed: 14 days
   };
 
   const FEEDS = [
@@ -662,9 +786,8 @@
     });
   }
 
-  // Filter out articles that exceed a tab's rolling window
   function isWithinTabRollingWindow(pubDate, topic) {
-    if (topic === 'markets') return true; // Handled by Markets AM/PM today-start rule
+    if (topic === 'markets') return true;
 
     const windowDays = TAB_ROLLING_WINDOWS[topic];
     if (!windowDays) return true;
@@ -706,23 +829,17 @@
           const contentLower = (item.fullContent || item.description || '').toLowerCase();
           const authorLower = (item.author || '').toLowerCase();
 
-          // Explicitly remove "Inflation Break"
           if (titleLower.includes('inflation break')) return;
 
-          // Filter out spam/system actions
           const isActionRequired = ACTION_REQUIRED_KEYWORDS.some(k => titleLower.includes(k) || contentLower.includes(k));
           if (isActionRequired) return;
 
-          // Filter out political articles
           const isPolitical = POLITICAL_KEYWORDS.some(keyword => titleLower.includes(keyword));
           if (isPolitical) return;
 
-          // Apply Rolling Window Logic per Tab
           if (feed.topic === 'markets') {
-            // Markets AM/PM retains strict "Today Onward" rule
             if (validDate < todayStart) return;
           } else {
-            // Standard tabs check their respective rolling windows
             if (!isWithinTabRollingWindow(validDate, feed.topic)) return;
           }
 
@@ -740,7 +857,6 @@
           let externalLink = item.link || 'https://www.cnbc.com';
           let sourceName = feed.source;
 
-          // Dynamic Routing for CNBC Zapier Feed
           if (feed.isZapierCnbc) {
             sourceName = 'CNBC';
             const combinedText = `${titleLower} ${contentLower} ${authorLower}`;
@@ -759,11 +875,10 @@
             } else if (isCramerOrCnbc) {
               badgeTopic = 'Equities';
             } else {
-              badgeTopic = 'Equities'; // Default fallback
+              badgeTopic = 'Equities';
             }
           }
 
-          // Dynamic Routing for WSJ Markets Feed
           if (feed.isZapierMarkets && validDate) {
             const hour = validDate.getHours();
             if (hour >= 3 && hour < 12) {
@@ -795,154 +910,204 @@
     });
 
     await Promise.all(fetchPromises);
-
     allArticles.sort((a, b) => b.date - a.date);
 
-    if (allArticles.length === 0) {
-      renderFallbackArticles();
-    } else {
-      updateSubtopicDropdown('all');
-      renderArticles('all', 'all');
-    }
+    updateSubtopicDropdown('all');
+    renderArticles('all', 'all');
   }
 
   function updateSubtopicDropdown(filterCategory) {
+    const label = document.getElementById('subfilterLabel');
     const select = document.getElementById('subtopicSelect');
-    select.innerHTML = '<option value="all">All Topics</option>';
 
-    const categoryArticles = filterCategory === 'all'
-      ? allArticles
-      : allArticles.filter(a => a.topic === filterCategory);
+    select.innerHTML = '';
 
-    const uniqueTopics = [...new Set(categoryArticles.map(a => a.badgeTopic))].sort();
+    if (filterCategory === 'resources') {
+      label.textContent = 'Resource Type:';
+      select.innerHTML = `
+        <option value="all">All Resources</option>
+        <option value="podcast">Podcasts</option>
+        <option value="book">Books</option>
+      `;
+    } else {
+      label.textContent = 'Topic Filter:';
+      const optionAll = document.createElement('option');
+      optionAll.value = 'all';
+      optionAll.textContent = 'All Topics';
+      select.appendChild(optionAll);
 
-    uniqueTopics.forEach(topic => {
-      const option = document.createElement('option');
-      option.value = topic;
-      option.textContent = topic;
-      select.appendChild(option);
-    });
+      const categoryArticles = filterCategory === 'all'
+        ? allArticles
+        : allArticles.filter(a => a.topic === filterCategory);
+
+      const uniqueTopics = [...new Set(categoryArticles.map(a => a.badgeTopic))].sort();
+
+      uniqueTopics.forEach(topic => {
+        const option = document.createElement('option');
+        option.value = topic;
+        option.textContent = topic;
+        select.appendChild(option);
+      });
+    }
   }
 
-  function renderArticles(filterCategory, filterSubtopic = 'all') {
-    const feedContainer = document.getElementById('news-feed');
-    feedContainer.innerHTML = '';
+  function renderResources(filterType = 'all') {
+    const resourcesContainer = document.getElementById('resources-feed');
+    resourcesContainer.innerHTML = '';
 
-    let filtered = filterCategory === 'all' 
-      ? allArticles 
-      : allArticles.filter(a => a.topic === filterCategory);
-
-    if (filterSubtopic !== 'all') {
-      filtered = filtered.filter(a => a.badgeTopic === filterSubtopic);
-    }
+    const filtered = filterType === 'all' 
+      ? CURATED_RESOURCES 
+      : CURATED_RESOURCES.filter(r => r.type === filterType);
 
     if (filtered.length === 0) {
-      feedContainer.innerHTML = '<div class="loading-state">No stories found matching this topic filter.</div>';
+      resourcesContainer.innerHTML = '<div class="loading-state">No resources found for this filter.</div>';
       return;
     }
 
-    filtered.forEach((item) => {
+    filtered.forEach(res => {
+      const card = document.createElement('div');
+      card.className = 'resource-card';
+
+      const isPodcast = res.type === 'podcast';
+      const badgeClass = isPodcast ? 'badge-podcast' : 'badge-book';
+      const actionText = isPodcast ? 'Listen Podcast &rarr;' : 'View Book &rarr;';
+      const imageHtml = res.image ? `
+        <div class="resource-image-wrapper">
+          <img src="${res.image}" alt="${res.title}" class="resource-image">
+        </div>
+      ` : '';
+
+      card.innerHTML = `
+        <div>
+          <div class="resource-header-row">
+            <h3 class="resource-title">${res.title}</h3>
+            <span class="resource-type-badge ${badgeClass}">${res.type}</span>
+          </div>
+          ${imageHtml}
+          <p class="resource-desc">${res.description}</p>
+        </div>
+        <a href="${res.link}" target="_blank" rel="noopener noreferrer" class="resource-action-link">${actionText}</a>
+      `;
+
+      resourcesContainer.appendChild(card);
+    });
+  }
+
+  function renderArticles(primaryCategory = 'all', subTopic = 'all') {
+    const newsContainer = document.getElementById('news-feed');
+    const resourcesContainer = document.getElementById('resources-feed');
+
+    if (primaryCategory === 'resources') {
+      newsContainer.style.display = 'none';
+      resourcesContainer.style.display = 'grid';
+      renderResources(subTopic);
+      return;
+    }
+
+    newsContainer.style.display = 'grid';
+    resourcesContainer.style.display = 'none';
+    newsContainer.innerHTML = '';
+
+    let filtered = primaryCategory === 'all' 
+      ? allArticles 
+      : allArticles.filter(a => a.topic === primaryCategory);
+
+    if (subTopic !== 'all') {
+      filtered = filtered.filter(a => a.badgeTopic === subTopic);
+    }
+
+    if (filtered.length === 0) {
+      newsContainer.innerHTML = '<div class="loading-state">No stories found matching this topic.</div>';
+      return;
+    }
+
+    filtered.forEach(article => {
       const card = document.createElement('div');
       card.className = 'insight-card';
 
       card.innerHTML = `
         <div>
           <div class="insight-badge-row">
-            <span class="insight-source">${item.source}</span>
-            <span class="insight-category">${item.badgeTopic}</span>
+            <span class="insight-source">${article.source}</span>
+            <span class="insight-category">${article.badgeTopic}</span>
           </div>
-          <div class="insight-title">${item.title}</div>
-          <div class="insight-snippet">${item.snippet}</div>
+          <h3 class="insight-title">${article.title}</h3>
+          <p class="insight-snippet">${article.snippet}</p>
         </div>
         <div class="insight-meta">
-          <span>${item.dateStr}</span>
+          <span>${article.dateStr}</span>
           <span class="insight-link">Read Story &rarr;</span>
         </div>
       `;
 
-      card.addEventListener('click', () => openArticleModal(item));
-      feedContainer.appendChild(card);
+      card.addEventListener('click', () => {
+        openModal(article);
+      });
+
+      newsContainer.appendChild(card);
     });
   }
 
-  function renderFallbackArticles() {
-    const now = new Date();
-    allArticles = [
-      { 
-        title: "Markets AM: Treasury Yields Hold Steady Ahead of Rate Guidance", 
-        link: "https://www.wsj.com/newsletters/markets-am?eafs_enabled=false", 
-        source: "Wall Street Journal", 
-        topic: "markets", 
-        badgeTopic: "Markets AM", 
-        date: now, 
-        dateStr: formatArticleDate(now, true), 
-        snippet: "U.S. equity futures fluctuated as investors parsed inflation metrics and bond market yields.",
-        fullContent: "U.S. equity futures fluctuated as investors parsed inflation metrics and bond market yields. Federal Reserve officials are closely watching upcoming CPI data to evaluate upcoming monetary policy options."
-      }
-    ];
-    updateSubtopicDropdown('all');
-    renderArticles('all', 'all');
-  }
+  // MODAL FUNCTIONS
+  const modal = document.getElementById('articleModal');
+  const modalCloseBtn = document.getElementById('modalCloseBtn');
 
-  /* MODAL CONTROL FUNCTIONS */
-  function openArticleModal(item) {
-    document.getElementById('modalSource').textContent = item.source;
-    document.getElementById('modalCategory').textContent = item.badgeTopic;
-    document.getElementById('modalTitle').textContent = item.title;
-    document.getElementById('modalDate').textContent = item.dateStr;
-    document.getElementById('modalSnippet').textContent = item.fullContent || item.snippet;
-    document.getElementById('modalExternalLink').href = item.link;
+  function openModal(article) {
+    document.getElementById('modalSource').textContent = article.source;
+    document.getElementById('modalCategory').textContent = article.badgeTopic;
+    document.getElementById('modalTitle').textContent = article.title;
+    document.getElementById('modalDate').textContent = article.dateStr;
+    document.getElementById('modalSnippet').textContent = article.fullContent;
 
-    const modal = document.getElementById('articleModal');
+    const externalBtn = document.getElementById('modalExternalLink');
+    externalBtn.href = article.link;
+
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
     document.body.style.overflow = 'hidden';
   }
 
-  function closeArticleModal() {
-    const modal = document.getElementById('articleModal');
-    if (modal) {
-      modal.classList.remove('active');
-      modal.setAttribute('aria-hidden', 'true');
-      document.body.style.overflow = '';
-    }
+  function closeModal() {
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
   }
 
-  /* EVENT LISTENERS */
-  document.getElementById('modalCloseBtn').addEventListener('click', closeArticleModal);
-
-  document.getElementById('articleModal').addEventListener('click', (e) => {
-    if (e.target.id === 'articleModal') {
-      closeArticleModal();
-    }
+  modalCloseBtn.addEventListener('click', closeModal);
+  modal.addEventListener('click', (e) => {
+    if (e.target === modal) closeModal();
   });
 
   document.addEventListener('keydown', (e) => {
-    if (e.key === 'Escape') {
-      closeArticleModal();
+    if (e.key === 'Escape' && modal.classList.contains('active')) {
+      closeModal();
     }
   });
 
-  document.querySelectorAll('.tab-btn').forEach(btn => {
-    btn.addEventListener('click', (e) => {
-      document.querySelectorAll('.tab-btn').forEach(b => b.classList.remove('active'));
-      e.target.classList.add('active');
-      const categoryFilter = e.target.getAttribute('data-filter');
-      
-      updateSubtopicDropdown(categoryFilter);
-      renderArticles(categoryFilter, 'all');
+  // FILTER INTERACTION LISTENERS
+  const tabButtons = document.querySelectorAll('.tab-btn');
+  const subtopicSelect = document.getElementById('subtopicSelect');
+
+  tabButtons.forEach(btn => {
+    btn.addEventListener('click', () => {
+      tabButtons.forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+
+      const category = btn.getAttribute('data-filter');
+      updateSubtopicDropdown(category);
+      renderArticles(category, 'all');
     });
   });
 
-  document.getElementById('subtopicSelect').addEventListener('change', (e) => {
+  subtopicSelect.addEventListener('change', (e) => {
     const activeTab = document.querySelector('.tab-btn.active').getAttribute('data-filter');
-    const selectedSubtopic = e.target.value;
-    renderArticles(activeTab, selectedSubtopic);
+    renderArticles(activeTab, e.target.value);
   });
 
-  document.addEventListener('DOMContentLoaded', loadAllFeeds);
+  // INITIALIZE APP
+  document.addEventListener('DOMContentLoaded', () => {
+    loadAllFeeds();
+  });
 </script>
-
-<script src="script.js"></script>
 </body>
 </html>

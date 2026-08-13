@@ -4,21 +4,16 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   
-  <title>PBAM — Private Banking & Asset Management | SMU</title>
+  <title>Team — PBAM SMU</title>
+  <meta name="description" content="Meet the executive team and analysts of the Private Banking and Asset Management Club at SMU.">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-</head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Team — PBAM SMU</title>
-<meta name="description" content="Meet the executive team and analysts of the Private Banking and Asset Management Club at SMU.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
 
 <style>
-  /* Hero section with skyline background image */
-  .hero {
+  /* HERO WITH SKYLINE BACKGROUND & CENTERED TITLE (MATCHED TO RECRUITMENT TAB) */
+  .page-hero {
     position: relative !important;
     background-image: url('images/dallas-jpm skyline.png') !important;
     background-size: cover !important;
@@ -26,10 +21,13 @@
     background-repeat: no-repeat !important;
     background-color: transparent !important;
     overflow: hidden;
+    padding: 100px 0 !important;
+    text-align: center !important;
   }
 
   /* Semi-transparent overlay over hero image */
-  .hero-overlay {
+  .page-hero::before {
+    content: "";
     position: absolute;
     top: 0;
     left: 0;
@@ -39,11 +37,28 @@
     z-index: 1;
   }
 
-  .hero-cols,
-  .hero-inner,
-  .hero-base {
+  .page-hero-inner {
     position: relative;
     z-index: 2;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    text-align: center !important;
+  }
+
+  /* Match "Leadership" heading styling to "Join PBAM" on Recruitment Page */
+  .page-hero h1 {
+    font-family: 'Cormorant Garamond', serif !important;
+    font-style: italic !important;
+    font-weight: 400 !important;
+    color: #EAE8DC !important; /* Gold/cream accent color */
+    margin: 0 auto !important;
+    text-align: center !important;
+  }
+
+  /* Hide the watermark SVG icon in the background */
+  .page-hero > .col-mark {
+    display: none !important;
   }
 
   /* Join PBAM button styling */
@@ -54,7 +69,7 @@
     color: #152820 !important;
   }
 
-  /* FORCE ALL TEAM & FOUNDER PHOTOS TO SCALE TO FILL THE ENTIRE GREEN BOX */
+  /* FORCE ALL TEAM & FOUNDER PHOTOS TO SCALE TO FILL THE ENTIRE CARD */
   .team-photo {
     position: relative !important;
     width: 100% !important;
@@ -72,15 +87,6 @@
   }
 
   /* Flex layout to align the name and LinkedIn icon side-by-side */
-  .team-name {
-    display: flex !important;
-    align-items: center !important;
-    justify-content: space-between !important;
-    gap: 8px;
-  }
-
-  /* LinkedIn icon link styling */
-/* Flex layout to align the name and LinkedIn icon side-by-side */
   .team-name {
     display: flex !important;
     align-items: center !important;
@@ -109,8 +115,6 @@
     height: 22px;
     fill: currentColor;
   }
-
-  
 </style>
 </head>
 <body>
@@ -139,10 +143,9 @@
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
-<div class="nav-links" id="navLinks">
+    <div class="nav-links" id="navLinks">
       <a href="index.html">Home</a>
       <a href="what-we-do.html">What We Do</a>
-      <!-- ADD THE NEW TAB RIGHT HERE -->
       <a href="market-insights.html">Market Insights</a>
       <a href="team.html">Team</a>
       <a href="recruitment.html">Recruitment</a>
@@ -155,21 +158,18 @@
 
   <!-- PAGE HERO -->
   <section class="page-hero">
-    <svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg>
     <div class="wrap page-hero-inner">
-      <div class="eyebrow on-dark"><span class="rule"></span>Team</div>
-      <h1>The students behind PBAM.</h1>
-      <p>The executive board building PBAM's programming and partnerships, and the analysts driving our projects and events.</p>
+      <h1>Leadership</h1>
     </div>
   </section>
 
-<!-- FOUNDERS -->
+  <!-- FOUNDERS -->
   <section class="team" style="padding-bottom: 0;">
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow">Leadership</div>
         <h2>Founders</h2>
-        <p>The original founders of PBAM.</p>
+        <p>The original founders of PBAM '25 .</p>
       </div>
       <div class="team-grid">
         <!-- Founder 1: Aaron Hidalgo -->
@@ -217,13 +217,13 @@
     </div>
   </section>
   
-<!-- EXEC TEAM -->
+  <!-- EXEC TEAM -->
   <section class="team">
     <div class="wrap">
       <div class="section-head reveal">
         <div class="eyebrow">Leadership</div>
         <h2>Executive Board</h2>
-        <p>Leading PBAM this year.</p>
+        <p>Leading PBAM '26 - '27.</p>
       </div>
       <div class="team-grid">
         <!-- Aaron Hidalgo -->
@@ -423,8 +423,8 @@
         <div class="foot-col">
           <h4>Connect</h4>
           <a href="recruitment.html">Recruitment</a>
-          <a href="#">LinkedIn</a>
-          <a href="#">Instagram</a>
+          <a href="https://www.linkedin.com/company/pb-am/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://www.instagram.com/smu.pbam/" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
         <div class="foot-col">
           <h4>Southern Methodist University</h4>
