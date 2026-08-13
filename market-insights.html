@@ -1,12 +1,6 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>PBAM — Private Banking & Asset Management | SMU</title>
-  <link rel="stylesheet" href="styles.css">
-</head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
 <title>Market Insights — PBAM SMU</title>
@@ -81,7 +75,7 @@
   .filter-tabs {
     display: flex;
     align-items: center;
-    gap: 10px;
+    gap: 8px;
     flex-wrap: wrap;
   }
 
@@ -107,7 +101,7 @@
     border-color: #EAE8DC;
   }
 
-  /* INLINE TOPIC DROPDOWN (FIXED SCALING & WIDTH) */
+  /* INLINE TOPIC DROPDOWN */
   .subfilter-container {
     display: flex;
     align-items: center;
@@ -138,15 +132,11 @@
     cursor: pointer;
     outline: none;
     transition: all 0.2s ease;
-    
-    /* Locked size and ellipsis truncation */
     width: 170px;
     box-sizing: border-box;
     text-overflow: ellipsis;
     white-space: nowrap;
     overflow: hidden;
-
-    /* Custom drop arrow */
     appearance: none;
     -webkit-appearance: none;
     -moz-appearance: none;
@@ -382,6 +372,34 @@
   .modal-external-btn:hover {
     background-color: #234235;
   }
+
+  /* RESPONSIVE MEDIA QUERIES */
+  @media screen and (max-width: 1024px) {
+    .page-hero h1 { font-size: 2.8rem !important; }
+    .insights-grid { grid-template-columns: repeat(2, 1fr); gap: 20px; }
+  }
+
+  @media screen and (max-width: 768px) {
+    .page-hero { padding: 60px 0 40px 0 !important; }
+    .page-hero h1 { font-size: 2.2rem !important; }
+    .filter-wrapper { flex-direction: column; align-items: stretch; gap: 12px; }
+    .filter-tabs { justify-content: flex-start; overflow-x: auto; white-space: nowrap; padding-bottom: 6px; -webkit-overflow-scrolling: touch; }
+    .tab-btn { padding: 6px 14px; font-size: 0.78rem; flex-shrink: 0; }
+    .subfilter-container { margin-left: 0; justify-content: space-between; width: 100%; }
+    .subfilter-select { width: 60%; }
+    .insights-grid { grid-template-columns: 1fr; }
+    .modal-container { max-height: 90vh; margin: 10px; }
+    .modal-header, .modal-body { padding: 20px; }
+    .modal-title { font-size: 1.4rem; }
+  }
+
+  @media screen and (max-width: 480px) {
+    .page-hero h1 { font-size: 1.8rem !important; }
+    .subfilter-container { flex-direction: column; align-items: flex-start; gap: 6px; }
+    .subfilter-select { width: 100%; }
+    .insight-card { padding: 18px; }
+    .insight-title { font-size: 1.25rem; }
+  }
 </style>
 </head>
 <body>
@@ -437,9 +455,10 @@
       <div class="filter-tabs">
         <button class="tab-btn active" data-filter="all">All Stories</button>
         <button class="tab-btn" data-filter="markets">Markets A.M. / P.M.</button>
-        <button class="tab-btn" data-filter="investment">Investment & Wealth</button>
+        <button class="tab-btn" data-filter="investment">Investments & Wealth</button>
         <button class="tab-btn" data-filter="economy">Economy & Macro</button>
-        <button class="tab-btn" data-filter="fed">Central Banking & Fed</button>
+        <button class="tab-btn" data-filter="fed">Central Banking</button>
+        <button class="tab-btn" data-filter="economic-calendar">Economic Calendar</button>
       </div>
 
       <div class="subfilter-container">
@@ -521,17 +540,34 @@
 <script>
   let allArticles = [];
 
+  // Per-Tab Rolling Window Configuration (in Days)
+  const TAB_ROLLING_WINDOWS = {
+    'investment': 7,          // Investment & Wealth: 7 days
+    'economy': 14,            // Economy & Macro: 14 days
+    'fed': 14,                // Central Banks & Fed: 14 days
+    'economic-calendar': 30   // Economic Calendar: 30 days
+  };
+
   const FEEDS = [
-    // Custom Zapier Email-to-RSS Feed
+    // Markets AM / PM Zapier Feed
     { 
       source: 'Wall Street Journal', 
       topic: 'markets', 
       badgeTopic: 'Markets AM', 
       url: 'https://zapier.com/engine/rss/28527479/pbam-markets-wsj',
-      isZapier: true 
+      isZapierMarkets: true 
+    },
+
+    // CNBC Investment & Wealth Zapier Feed
+    { 
+      source: 'CNBC', 
+      topic: 'investment', 
+      badgeTopic: 'Wealth', 
+      url: 'https://zapier.com/engine/rss/28527479/pbam-cnbc-wealth',
+      isZapierCnbc: true 
     },
     
-    // Standard Topics
+    // Standard Topics & Outlets
     { source: 'Wall Street Journal', topic: 'fed', badgeTopic: 'Central Banking', url: 'https://news.google.com/rss/search?q=site:wsj.com+"Federal+Reserve"+OR+"Central+Bank"-politics&hl=en-US&gl=US&ceid=US:en' },
     { source: 'Wall Street Journal', topic: 'economy', badgeTopic: 'Economy', url: 'https://feeds.a.dj.com/rss/RSSWSJDIEconomics.xml' },
     { source: 'Wall Street Journal', topic: 'economy', badgeTopic: 'Consumers', url: 'https://news.google.com/rss/search?q=site:wsj.com+consumer+spending+economy-politics&hl=en-US&gl=US&ceid=US:en' },
@@ -559,11 +595,19 @@
     return rawTitle.replace(/\s*-\s*[^-]+$/, '').trim();
   }
 
-  // Formats date into "MMM D" or "MMM D, h:mm A" depending on includeTime
+  function parseRSSDate(dateStr) {
+    if (!dateStr) return null;
+    let d = new Date(dateStr);
+    if (!isNaN(d.getTime())) return d;
+
+    const cleaned = dateStr.replace(/(\+\d{2})(\d{2})$/, '$1:$2');
+    d = new Date(cleaned);
+    return !isNaN(d.getTime()) ? d : null;
+  }
+
   function formatArticleDate(dateInput, includeTime = false) {
     if (!dateInput) return '';
     const dateObj = (dateInput instanceof Date) ? dateInput : new Date(dateInput);
-    
     if (isNaN(dateObj.getTime())) return '';
 
     const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
@@ -592,9 +636,16 @@
 
     return Array.from(items).map(item => {
       const title = item.querySelector('title')?.textContent || 'Market News Update';
-      const link = item.querySelector('link')?.textContent || item.querySelector('guid')?.textContent || 'https://www.wsj.com';
-      const pubDate = item.querySelector('pubDate')?.textContent || item.querySelector('date')?.textContent || '';
+      const link = item.querySelector('link')?.textContent || item.querySelector('guid')?.textContent || 'https://www.cnbc.com';
+      
+      const rawDate = item.querySelector('pubDate')?.textContent || 
+                      item.querySelector('pubdate')?.textContent || 
+                      item.querySelector('date')?.textContent || 
+                      item.querySelector('updated')?.textContent || 
+                      item.getElementsByTagName('dc:date')[0]?.textContent || '';
+
       const rawContent = item.querySelector('description')?.textContent || item.querySelector('encoded')?.textContent || '';
+      const author = item.querySelector('author')?.textContent || item.querySelector('creator')?.textContent || '';
 
       const tempDiv = document.createElement('div');
       tempDiv.innerHTML = rawContent;
@@ -603,25 +654,36 @@
       return {
         title: cleanTitle(title),
         link: link,
-        pubDate: pubDate,
+        pubDate: rawDate,
+        author: author,
         fullContent: fullText,
         snippet: fullText.length > 130 ? fullText.substring(0, 130) + '...' : fullText || 'Click to view story details.'
       };
     });
   }
 
+  // Filter out articles that exceed a tab's rolling window
+  function isWithinTabRollingWindow(pubDate, topic) {
+    if (topic === 'markets') return true; // Handled by Markets AM/PM today-start rule
+
+    const windowDays = TAB_ROLLING_WINDOWS[topic];
+    if (!windowDays) return true;
+
+    const now = new Date();
+    const cutoffDate = new Date(now.getFullYear(), now.getMonth(), now.getDate() - windowDays);
+    return pubDate >= cutoffDate;
+  }
+
   async function loadAllFeeds() {
     allArticles = [];
     const now = new Date();
-    
-    const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000;
-    const twentyDaysInMs = 20 * 24 * 60 * 60 * 1000;
+    const todayStart = new Date(now.getFullYear(), now.getMonth(), now.getDate());
 
     const fetchPromises = FEEDS.map(async (feed) => {
       try {
         let items = [];
 
-        if (feed.isZapier) {
+        if (feed.isZapierMarkets || feed.isZapierCnbc) {
           items = await fetchZapierFeed(feed.url);
         } else {
           const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
@@ -633,64 +695,99 @@
         }
 
         items.forEach(item => {
-          const rawDateStr = item.pubDate || item.pubdate;
-          const articleDate = rawDateStr ? new Date(rawDateStr) : null;
-          const validDate = (articleDate && !isNaN(articleDate.getTime())) ? articleDate : new Date();
+          const rawDateStr = item.pubDate || item.pubdate || item.created;
+          const parsedDate = parseRSSDate(rawDateStr);
+          const validDate = parsedDate || null;
+
+          if (!validDate) return;
 
           const cleanedTitle = cleanTitle(item.title);
           const titleLower = cleanedTitle.toLowerCase();
           const contentLower = (item.fullContent || item.description || '').toLowerCase();
+          const authorLower = (item.author || '').toLowerCase();
 
+          // Explicitly remove "Inflation Break"
+          if (titleLower.includes('inflation break')) return;
+
+          // Filter out spam/system actions
           const isActionRequired = ACTION_REQUIRED_KEYWORDS.some(k => titleLower.includes(k) || contentLower.includes(k));
           if (isActionRequired) return;
 
+          // Filter out political articles
           const isPolitical = POLITICAL_KEYWORDS.some(keyword => titleLower.includes(keyword));
+          if (isPolitical) return;
 
-          const maxAllowedAgeMs = (feed.topic === 'markets') ? twentyDaysInMs : sevenDaysInMs;
-          const isRecent = (now - validDate) <= maxAllowedAgeMs || !rawDateStr;
-
-          if (isRecent && !isPolitical) {
-            let fullContent = item.fullContent;
-            let snippet = item.snippet;
-
-            if (!fullContent) {
-              const tempDiv = document.createElement('div');
-              tempDiv.innerHTML = item.description || item.content || '';
-              fullContent = (tempDiv.textContent || tempDiv.innerText || '').trim();
-              snippet = fullContent.length > 130 ? fullContent.substring(0, 130) + '...' : fullContent || 'Click to view story details.';
-            }
-
-            let badgeTopic = feed.badgeTopic;
-            let externalLink = item.link || 'https://www.wsj.com';
-
-            if (feed.isZapier) {
-              const hour = validDate.getHours();
-
-              // Window: 3 AM (inclusive) to 12 PM (exclusive) -> Markets AM
-              if (hour >= 3 && hour < 12) {
-                badgeTopic = 'Markets AM';
-                externalLink = 'https://www.wsj.com/newsletters/markets-am?eafs_enabled=false';
-              } else {
-                badgeTopic = 'Markets PM';
-                externalLink = 'https://www.wsj.com/newsletters/markets-pm?eafs_enabled=false';
-              }
-            }
-
-            // Only include the time string for Markets AM / PM articles
-            const isMarketAmPm = badgeTopic === 'Markets AM' || badgeTopic === 'Markets PM';
-
-            allArticles.push({
-              title: cleanedTitle,
-              link: externalLink,
-              source: feed.source,
-              topic: feed.topic,
-              badgeTopic: badgeTopic,
-              date: validDate,
-              dateStr: formatArticleDate(validDate, isMarketAmPm),
-              snippet: snippet,
-              fullContent: fullContent || snippet
-            });
+          // Apply Rolling Window Logic per Tab
+          if (feed.topic === 'markets') {
+            // Markets AM/PM retains strict "Today Onward" rule
+            if (validDate < todayStart) return;
+          } else {
+            // Standard tabs check their respective rolling windows
+            if (!isWithinTabRollingWindow(validDate, feed.topic)) return;
           }
+
+          let fullContent = item.fullContent;
+          let snippet = item.snippet;
+
+          if (!fullContent) {
+            const tempDiv = document.createElement('div');
+            tempDiv.innerHTML = item.description || item.content || '';
+            fullContent = (tempDiv.textContent || tempDiv.innerText || '').trim();
+            snippet = fullContent.length > 130 ? fullContent.substring(0, 130) + '...' : fullContent || 'Click to view story details.';
+          }
+
+          let badgeTopic = feed.badgeTopic;
+          let externalLink = item.link || 'https://www.cnbc.com';
+          let sourceName = feed.source;
+
+          // Dynamic Routing for CNBC Zapier Feed
+          if (feed.isZapierCnbc) {
+            sourceName = 'CNBC';
+            const combinedText = `${titleLower} ${contentLower} ${authorLower}`;
+
+            const isRobertFrank = 
+              combinedText.includes('robert frank') || 
+              combinedText.includes('robert.frank') || 
+              combinedText.includes('inside wealth');
+
+            const isCramerOrCnbc = 
+              combinedText.includes('jim cramer') || 
+              combinedText.includes('cramer');
+
+            if (isRobertFrank) {
+              badgeTopic = 'Wealth';
+            } else if (isCramerOrCnbc) {
+              badgeTopic = 'Equities';
+            } else {
+              badgeTopic = 'Equities'; // Default fallback
+            }
+          }
+
+          // Dynamic Routing for WSJ Markets Feed
+          if (feed.isZapierMarkets && validDate) {
+            const hour = validDate.getHours();
+            if (hour >= 3 && hour < 12) {
+              badgeTopic = 'Markets AM';
+              externalLink = 'https://www.wsj.com/newsletters/markets-am?eafs_enabled=false';
+            } else {
+              badgeTopic = 'Markets PM';
+              externalLink = 'https://www.wsj.com/newsletters/markets-pm?eafs_enabled=false';
+            }
+          }
+
+          const isMarketAmPm = badgeTopic === 'Markets AM' || badgeTopic === 'Markets PM';
+
+          allArticles.push({
+            title: cleanedTitle,
+            link: externalLink,
+            source: sourceName,
+            topic: feed.topic,
+            badgeTopic: badgeTopic,
+            date: validDate,
+            dateStr: formatArticleDate(validDate, isMarketAmPm),
+            snippet: snippet,
+            fullContent: fullContent || snippet
+          });
         });
       } catch (err) {
         console.warn(`Failed loading feed: ${feed.source}`, err);
@@ -804,9 +901,11 @@
 
   function closeArticleModal() {
     const modal = document.getElementById('articleModal');
-    modal.classList.remove('active');
-    modal.setAttribute('aria-hidden', 'true');
-    document.body.style.overflow = '';
+    if (modal) {
+      modal.classList.remove('active');
+      modal.setAttribute('aria-hidden', 'true');
+      document.body.style.overflow = '';
+    }
   }
 
   /* EVENT LISTENERS */
