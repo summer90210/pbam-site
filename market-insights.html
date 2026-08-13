@@ -18,7 +18,7 @@
     background-size: cover !important;
     background-position: center center !important;
     background-repeat: no-repeat !important;
-    background-color: transparent !important;
+    background-color: #152820 !important;
     overflow: hidden;
     padding: 80px 0 60px 0 !important;
     text-align: center !important;
@@ -101,12 +101,13 @@
     border-color: #EAE8DC;
   }
 
-  /* CLEAN INLINE TOPIC DROPDOWN */
+  /* INLINE TOPIC DROPDOWN (FIXED SCALING & WIDTH) */
   .subfilter-container {
     display: flex;
     align-items: center;
     gap: 8px;
     margin-left: auto;
+    flex-shrink: 0;
   }
 
   .subfilter-label {
@@ -123,7 +124,7 @@
     color: #EAE8DC;
     border: 1px solid rgba(234, 232, 220, 0.3);
     border-radius: 20px;
-    padding: 7px 16px;
+    padding: 7px 32px 7px 16px;
     font-family: 'Jost', sans-serif;
     font-size: 0.82rem;
     font-weight: 500;
@@ -131,6 +132,21 @@
     cursor: pointer;
     outline: none;
     transition: all 0.2s ease;
+    
+    /* Locked size and ellipsis truncation */
+    width: 170px;
+    box-sizing: border-box;
+    text-overflow: ellipsis;
+    white-space: nowrap;
+    overflow: hidden;
+
+    /* Custom drop arrow */
+    appearance: none;
+    -webkit-appearance: none;
+    -moz-appearance: none;
+    background-image: url("data:image/svg+xml;utf8,<svg fill='%23EAE8DC' height='16' viewBox='0 0 24 24' width='16' xmlns='http://www.w3.org/2000/svg'><path d='M7 10l5 5 5-5z'/></svg>");
+    background-repeat: no-repeat;
+    background-position: right 10px center;
   }
 
   .subfilter-select:hover,
@@ -165,7 +181,7 @@
     flex-direction: column;
     justify-content: space-between;
     transition: transform 0.25s ease, box-shadow 0.25s ease;
-    text-decoration: none;
+    cursor: pointer;
     color: inherit;
   }
 
@@ -221,6 +237,7 @@
     color: #718096;
     display: flex;
     justify-content: space-between;
+    align-items: center;
     border-top: 1px solid rgba(0,0,0,0.06);
     padding-top: 14px;
     margin-top: auto;
@@ -236,6 +253,128 @@
     padding: 40px;
     font-size: 1.1rem;
     color: #152820;
+    grid-column: 1 / -1;
+  }
+
+  /* ARTICLE POPUP MODAL STYLES */
+  .modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background-color: rgba(15, 35, 25, 0.75);
+    backdrop-filter: blur(4px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 1000;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+    padding: 20px;
+  }
+
+  .modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+  }
+
+  .modal-container {
+    background-color: #ffffff;
+    width: 100%;
+    max-width: 680px;
+    max-height: 85vh;
+    border-radius: 8px;
+    box-shadow: 0 20px 40px rgba(0, 0, 0, 0.25);
+    position: relative;
+    display: flex;
+    flex-direction: column;
+    overflow: hidden;
+    animation: modalSlideUp 0.3s ease forwards;
+  }
+
+  @keyframes modalSlideUp {
+    from { transform: translateY(20px); opacity: 0; }
+    to { transform: translateY(0); opacity: 1; }
+  }
+
+  .modal-close {
+    position: absolute;
+    top: 16px;
+    right: 20px;
+    background: none;
+    border: none;
+    font-size: 2rem;
+    color: #152820;
+    cursor: pointer;
+    line-height: 1;
+    opacity: 0.6;
+    transition: opacity 0.2s;
+    z-index: 2;
+  }
+
+  .modal-close:hover {
+    opacity: 1;
+  }
+
+  .modal-header {
+    padding: 30px 30px 15px 30px;
+    border-bottom: 1px solid rgba(21, 40, 32, 0.1);
+  }
+
+  .modal-badge-row {
+    display: flex;
+    gap: 10px;
+    align-items: center;
+    margin-bottom: 12px;
+  }
+
+  .modal-title {
+    font-family: 'Cormorant Garamond', serif;
+    font-size: 1.8rem;
+    line-height: 1.25;
+    color: #152820;
+    margin: 0 0 10px 0;
+  }
+
+  .modal-date {
+    font-size: 0.82rem;
+    color: #718096;
+  }
+
+  .modal-body {
+    padding: 24px 30px 30px 30px;
+    overflow-y: auto;
+    display: flex;
+    flex-direction: column;
+    gap: 24px;
+  }
+
+  .modal-content {
+    font-family: 'Jost', sans-serif;
+    font-size: 1.05rem;
+    line-height: 1.65;
+    color: #2d3748;
+    white-space: pre-wrap;
+  }
+
+  .modal-external-btn {
+    display: inline-block;
+    align-self: flex-start;
+    background-color: #152820;
+    color: #EAE8DC;
+    padding: 12px 22px;
+    border-radius: 4px;
+    font-family: 'Jost', sans-serif;
+    font-size: 0.88rem;
+    font-weight: 500;
+    text-decoration: none;
+    transition: background-color 0.2s ease;
+  }
+
+  .modal-external-btn:hover {
+    background-color: #234235;
   }
 </style>
 </head>
@@ -315,6 +454,27 @@
     </div>
   </section>
 
+  <!-- ARTICLE POPUP MODAL -->
+  <div id="articleModal" class="modal-overlay" aria-hidden="true">
+    <div class="modal-container" role="dialog" aria-modal="true">
+      <button id="modalCloseBtn" class="modal-close" aria-label="Close modal">&times;</button>
+      <div class="modal-header">
+        <div class="modal-badge-row">
+          <span id="modalSource" class="insight-source"></span>
+          <span id="modalCategory" class="insight-category"></span>
+        </div>
+        <h2 id="modalTitle" class="modal-title"></h2>
+        <div id="modalDate" class="modal-date"></div>
+      </div>
+      <div class="modal-body">
+        <div id="modalSnippet" class="modal-content"></div>
+        <a id="modalExternalLink" href="#" target="_blank" rel="noopener noreferrer" class="modal-external-btn">
+          Read Full Story on Original Source &rarr;
+        </a>
+      </div>
+    </div>
+  </div>
+
 </main>
 
 <footer>
@@ -351,15 +511,21 @@
   </div>
 </footer>
 
-<!-- MULTI-SOURCE RSS FETCH ENGINE WITH DIFFERENTIAL TIME CUTOFFS -->
+<!-- MULTI-SOURCE RSS FETCH ENGINE -->
 <script>
   let allArticles = [];
 
   const FEEDS = [
-    // Wall Street Journal - Markets (20-day cutoff topic)
-    { source: 'Wall Street Journal', topic: 'markets', badgeTopic: 'Markets A.M. / P.M.', url: 'https://zapier.com/engine/rss/28527479/pbam-markets-wsj' },
+    // Custom Zapier Email-to-RSS Feed
+    { 
+      source: 'Wall Street Journal', 
+      topic: 'markets', 
+      badgeTopic: 'Markets AM', 
+      url: 'https://zapier.com/engine/rss/28527479/pbam-markets-wsj',
+      isZapier: true 
+    },
     
-    // Standard Topics (7-day rolling window)
+    // Standard Topics
     { source: 'Wall Street Journal', topic: 'fed', badgeTopic: 'Central Banking', url: 'https://news.google.com/rss/search?q=site:wsj.com+"Federal+Reserve"+OR+"Central+Bank"-politics&hl=en-US&gl=US&ceid=US:en' },
     { source: 'Wall Street Journal', topic: 'economy', badgeTopic: 'Economy', url: 'https://feeds.a.dj.com/rss/RSSWSJDIEconomics.xml' },
     { source: 'Wall Street Journal', topic: 'economy', badgeTopic: 'Consumers', url: 'https://news.google.com/rss/search?q=site:wsj.com+consumer+spending+economy-politics&hl=en-US&gl=US&ceid=US:en' },
@@ -367,69 +533,159 @@
     { source: 'Wall Street Journal', topic: 'economy', badgeTopic: 'Jobs', url: 'https://news.google.com/rss/search?q=site:wsj.com+jobs+employment+labor-politics&hl=en-US&gl=US&ceid=US:en' },
     { source: 'Wall Street Journal', topic: 'economy', badgeTopic: 'Trade', url: 'https://news.google.com/rss/search?q=site:wsj.com+trade+imports+exports-politics&hl=en-US&gl=US&ceid=US:en' },
 
-    // Financial Times Feeds (7-day rolling window)
+    // Financial Times Feeds
     { source: 'Financial Times', topic: 'economy', badgeTopic: 'US Economy', url: 'https://www.ft.com/us-economy?format=rss' },
     { source: 'Financial Times', topic: 'economy', badgeTopic: 'Global Economy', url: 'https://www.ft.com/global-economy?format=rss' },
     { source: 'Financial Times', topic: 'economy', badgeTopic: 'Emerging Markets', url: 'https://www.ft.com/emerging-markets?format=rss' },
     { source: 'Financial Times', topic: 'investment', badgeTopic: 'Tech', url: 'https://www.ft.com/technology?format=rss' },
     { source: 'Financial Times', topic: 'investment', badgeTopic: 'Companies', url: 'https://www.ft.com/companies?format=rss' },
     
-    // Central Banking Policy & J.P. Morgan Insights (7-day rolling window)
+    // Central Banking & J.P. Morgan Insights
     { source: 'Federal Reserve Policy', topic: 'fed', badgeTopic: 'Monetary Policy', url: 'https://news.google.com/rss/search?q="Federal+Reserve"+OR+"Monetary+Policy"+-politics+-election&hl=en-US&gl=US&ceid=US:en' },
     { source: 'J.P. Morgan Private Bank', topic: 'investment', badgeTopic: 'Wealth & Strategy', url: 'https://news.google.com/rss/search?q="J.P.+Morgan+Private+Bank"+insights&hl=en-US&gl=US&ceid=US:en' }
   ];
 
   const POLITICAL_KEYWORDS = ['election', 'trump', 'biden', 'vance', 'democrat', 'republican', 'campaign', 'vote', 'polling', 'congressional', 'parliament'];
+  const ACTION_REQUIRED_KEYWORDS = ['action required', 'set a password', 'verify your account', 'confirm your email', 'reset password'];
 
   function cleanTitle(rawTitle) {
     if (!rawTitle) return '';
     return rawTitle.replace(/\s*-\s*[^-]+$/, '').trim();
   }
 
+  // Formats date into "MMM D" or "MMM D, h:mm A" depending on includeTime
+  function formatArticleDate(dateInput, includeTime = false) {
+    if (!dateInput) return '';
+    const dateObj = (dateInput instanceof Date) ? dateInput : new Date(dateInput);
+    
+    if (isNaN(dateObj.getTime())) return '';
+
+    const months = ['Jan', 'Feb', 'Mar', 'Apr', 'May', 'Jun', 'Jul', 'Aug', 'Sep', 'Oct', 'Nov', 'Dec'];
+    const month = months[dateObj.getMonth()];
+    const day = dateObj.getDate();
+
+    if (!includeTime) {
+      return `${month} ${day}`;
+    }
+
+    let hours = dateObj.getHours();
+    const minutes = dateObj.getMinutes().toString().padStart(2, '0');
+    const ampm = hours >= 12 ? 'PM' : 'AM';
+
+    hours = hours % 12;
+    hours = hours ? hours : 12;
+
+    return `${month} ${day}, ${hours}:${minutes} ${ampm}`;
+  }
+
+  async function fetchZapierFeed(feedUrl) {
+    const response = await fetch(feedUrl);
+    const text = await response.text();
+    const xmlDoc = new DOMParser().parseFromString(text, 'text/xml');
+    const items = xmlDoc.querySelectorAll('item');
+
+    return Array.from(items).map(item => {
+      const title = item.querySelector('title')?.textContent || 'Market News Update';
+      const link = item.querySelector('link')?.textContent || item.querySelector('guid')?.textContent || 'https://www.wsj.com';
+      const pubDate = item.querySelector('pubDate')?.textContent || item.querySelector('date')?.textContent || '';
+      const rawContent = item.querySelector('description')?.textContent || item.querySelector('encoded')?.textContent || '';
+
+      const tempDiv = document.createElement('div');
+      tempDiv.innerHTML = rawContent;
+      const fullText = (tempDiv.textContent || tempDiv.innerText || '').trim();
+
+      return {
+        title: cleanTitle(title),
+        link: link,
+        pubDate: pubDate,
+        fullContent: fullText,
+        snippet: fullText.length > 130 ? fullText.substring(0, 130) + '...' : fullText || 'Click to view story details.'
+      };
+    });
+  }
+
   async function loadAllFeeds() {
     allArticles = [];
     const now = new Date();
     
-    // Time windows in milliseconds
     const sevenDaysInMs = 7 * 24 * 60 * 60 * 1000;
     const twentyDaysInMs = 20 * 24 * 60 * 60 * 1000;
 
     const fetchPromises = FEEDS.map(async (feed) => {
       try {
-        const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
-        const res = await fetch(apiUrl);
-        const data = await res.json();
+        let items = [];
 
-        if (data.status === 'ok' && data.items) {
-          data.items.forEach(item => {
-            const articleDate = new Date(item.pubDate);
-            const cleanedTitle = cleanTitle(item.title);
-            const titleLower = cleanedTitle.toLowerCase();
-            
-            const isPolitical = POLITICAL_KEYWORDS.some(keyword => titleLower.includes(keyword));
+        if (feed.isZapier) {
+          items = await fetchZapierFeed(feed.url);
+        } else {
+          const apiUrl = `https://api.rss2json.com/v1/api.json?rss_url=${encodeURIComponent(feed.url)}`;
+          const res = await fetch(apiUrl);
+          const data = await res.json();
+          if (data.status === 'ok' && data.items) {
+            items = data.items;
+          }
+        }
 
-            // Markets tab retains 20 days; all other tabs enforce a 7-day cutoff
-            const maxAllowedAgeMs = (feed.topic === 'markets') ? twentyDaysInMs : sevenDaysInMs;
-            const isRecent = (now - articleDate) <= maxAllowedAgeMs || item.pubDate === undefined || isNaN(articleDate.getTime());
+        items.forEach(item => {
+          const rawDateStr = item.pubDate || item.pubdate;
+          const articleDate = rawDateStr ? new Date(rawDateStr) : null;
+          const validDate = (articleDate && !isNaN(articleDate.getTime())) ? articleDate : new Date();
 
-            if (isRecent && !isPolitical) {
+          const cleanedTitle = cleanTitle(item.title);
+          const titleLower = cleanedTitle.toLowerCase();
+          const contentLower = (item.fullContent || item.description || '').toLowerCase();
+
+          const isActionRequired = ACTION_REQUIRED_KEYWORDS.some(k => titleLower.includes(k) || contentLower.includes(k));
+          if (isActionRequired) return;
+
+          const isPolitical = POLITICAL_KEYWORDS.some(keyword => titleLower.includes(keyword));
+
+          const maxAllowedAgeMs = (feed.topic === 'markets') ? twentyDaysInMs : sevenDaysInMs;
+          const isRecent = (now - validDate) <= maxAllowedAgeMs || !rawDateStr;
+
+          if (isRecent && !isPolitical) {
+            let fullContent = item.fullContent;
+            let snippet = item.snippet;
+
+            if (!fullContent) {
               const tempDiv = document.createElement('div');
               tempDiv.innerHTML = item.description || item.content || '';
-              const snippet = (tempDiv.textContent || tempDiv.innerText || '').trim().substring(0, 130);
-
-              allArticles.push({
-                title: cleanedTitle,
-                link: item.link || 'https://www.wsj.com',
-                source: feed.source,
-                topic: feed.topic,
-                badgeTopic: feed.badgeTopic,
-                date: isNaN(articleDate.getTime()) ? new Date(0) : articleDate,
-                dateStr: isNaN(articleDate.getTime()) ? 'Recent' : articleDate.toLocaleDateString('en-US', { month: 'short', day: 'numeric', year: 'numeric' }),
-                snippet: snippet ? snippet + '...' : 'Click to read full story on original source.'
-              });
+              fullContent = (tempDiv.textContent || tempDiv.innerText || '').trim();
+              snippet = fullContent.length > 130 ? fullContent.substring(0, 130) + '...' : fullContent || 'Click to view story details.';
             }
-          });
-        }
+
+            let badgeTopic = feed.badgeTopic;
+            let externalLink = item.link || 'https://www.wsj.com';
+
+            if (feed.isZapier) {
+              const hour = validDate.getHours();
+
+              // Window: 3 AM (inclusive) to 12 PM (exclusive) -> Markets AM
+              if (hour >= 3 && hour < 12) {
+                badgeTopic = 'Markets AM';
+                externalLink = 'https://www.wsj.com/newsletters/markets-am?eafs_enabled=false';
+              } else {
+                badgeTopic = 'Markets PM';
+                externalLink = 'https://www.wsj.com/newsletters/markets-pm?eafs_enabled=false';
+              }
+            }
+
+            // Only include the time string for Markets AM / PM articles
+            const isMarketAmPm = badgeTopic === 'Markets AM' || badgeTopic === 'Markets PM';
+
+            allArticles.push({
+              title: cleanedTitle,
+              link: externalLink,
+              source: feed.source,
+              topic: feed.topic,
+              badgeTopic: badgeTopic,
+              date: validDate,
+              dateStr: formatArticleDate(validDate, isMarketAmPm),
+              snippet: snippet,
+              fullContent: fullContent || snippet
+            });
+          }
+        });
       } catch (err) {
         console.warn(`Failed loading feed: ${feed.source}`, err);
       }
@@ -437,7 +693,6 @@
 
     await Promise.all(fetchPromises);
 
-    // Sort globally by date (newest first)
     allArticles.sort((a, b) => b.date - a.date);
 
     if (allArticles.length === 0) {
@@ -483,12 +738,9 @@
       return;
     }
 
-    filtered.forEach(item => {
-      const card = document.createElement('a');
+    filtered.forEach((item) => {
+      const card = document.createElement('div');
       card.className = 'insight-card';
-      card.href = item.link;
-      card.target = '_blank';
-      card.rel = 'noopener noreferrer';
 
       card.innerHTML = `
         <div>
@@ -505,17 +757,66 @@
         </div>
       `;
 
+      card.addEventListener('click', () => openArticleModal(item));
       feedContainer.appendChild(card);
     });
   }
 
   function renderFallbackArticles() {
+    const now = new Date();
     allArticles = [
-      { title: "Markets A.M.: Treasury Yields Hold Steady Ahead of Rate Guidance", link: "https://www.wsj.com", source: "Wall Street Journal", topic: "markets", badgeTopic: "Markets A.M. / P.M.", dateStr: "Today", snippet: "U.S. equity futures fluctuated as investors parsed inflation metrics and bond market yields." }
+      { 
+        title: "Markets AM: Treasury Yields Hold Steady Ahead of Rate Guidance", 
+        link: "https://www.wsj.com/newsletters/markets-am?eafs_enabled=false", 
+        source: "Wall Street Journal", 
+        topic: "markets", 
+        badgeTopic: "Markets AM", 
+        date: now, 
+        dateStr: formatArticleDate(now, true), 
+        snippet: "U.S. equity futures fluctuated as investors parsed inflation metrics and bond market yields.",
+        fullContent: "U.S. equity futures fluctuated as investors parsed inflation metrics and bond market yields. Federal Reserve officials are closely watching upcoming CPI data to evaluate upcoming monetary policy options."
+      }
     ];
     updateSubtopicDropdown('all');
     renderArticles('all', 'all');
   }
+
+  /* MODAL CONTROL FUNCTIONS */
+  function openArticleModal(item) {
+    document.getElementById('modalSource').textContent = item.source;
+    document.getElementById('modalCategory').textContent = item.badgeTopic;
+    document.getElementById('modalTitle').textContent = item.title;
+    document.getElementById('modalDate').textContent = item.dateStr;
+    document.getElementById('modalSnippet').textContent = item.fullContent || item.snippet;
+    document.getElementById('modalExternalLink').href = item.link;
+
+    const modal = document.getElementById('articleModal');
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeArticleModal() {
+    const modal = document.getElementById('articleModal');
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+    document.body.style.overflow = '';
+  }
+
+  /* EVENT LISTENERS */
+  document.getElementById('modalCloseBtn').addEventListener('click', closeArticleModal);
+
+  document.getElementById('articleModal').addEventListener('click', (e) => {
+    if (e.target.id === 'articleModal') {
+      closeArticleModal();
+    }
+  });
+
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape') {
+      closeArticleModal();
+    }
+  });
 
   document.querySelectorAll('.tab-btn').forEach(btn => {
     btn.addEventListener('click', (e) => {
