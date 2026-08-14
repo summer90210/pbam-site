@@ -138,13 +138,13 @@
     <div class="wrap">
       <div class="placeholder-panel reveal">
         <svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg>
-        <div class="eyebrow">Coming Soon</div>
-        <h2>Recruitment details are on the way</h2>
-        <p>We're finalizing this semester's recruitment timeline, application, and events. Check back soon for dates and how to apply.</p>
+        
+        <!-- Dynamic content container populated by script -->
+        <div id="recruitment-content"></div>
         
         <!-- CLICKABLE APPLICATION LINK BUTTON -->
-        <!-- Replace href="#" with your actual application URL (e.g., Google Form, Qualtrics, etc.) -->
-        <a href="https://forms.cloud.microsoft/r/brCaYDeN8b" target="_blank" rel="noopener noreferrer" class="apply-btn">
+        <!-- Set href="#" for 'Coming Soon' state, or put your actual application URL here -->
+        <a href="https://forms.cloud.microsoft/r/brCaYDeN8b" target="_blank" rel="noopener noreferrer" class="apply-btn" id="applyBtn">
           Apply Now &rarr;
         </a>
       </div>
@@ -182,11 +182,42 @@
     </div>
     <div class="foot-bottom">
       <span>&copy; 2026 Private Banking &amp; Asset Management Club, SMU.</span>
-      <span>Student-run &middot; Not affiliated with SMU financial services</span>
     </div>
   </div>
 </footer>
 
 <script src="script.js"></script>
+
+<script>
+  document.addEventListener("DOMContentLoaded", function() {
+    const applyBtn = document.getElementById("applyBtn");
+    const container = document.getElementById("recruitment-content");
+
+    if (!applyBtn || !container) return;
+
+    // Get raw href attribute to check if it's literally '#' or empty
+    const rawHref = applyBtn.getAttribute("href");
+
+    if (rawHref && rawHref.trim() !== "#" && rawHref.trim() !== "") {
+      // Live Link State
+      container.innerHTML = `
+        <div class="eyebrow">Application Is Live!</div>
+        <h2>PBAM recruits at the start of each semester</h2>
+        <p>Applications for this semester's recruitment are now open! Click the button below to apply.</p>
+      `;
+      applyBtn.style.display = "inline-block";
+    } else {
+      // No Link / Placeholder State
+      container.innerHTML = `
+        <div class="eyebrow">Coming Soon</div>
+        <h2>Recruitment details are on the way</h2>
+        <p>We're finalizing this semester's recruitment timeline, application, and events. Check back soon for dates and how to apply.</p>
+      `;
+      // Optionally hide the button if there is no live link
+      applyBtn.style.display = "none";
+    }
+  });
+</script>
+
 </body>
 </html>
