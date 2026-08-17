@@ -3,18 +3,196 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
   <title>PBAM — Private Banking & Asset Management | SMU</title>
+  <meta name="description" content="Private Banking & Asset Management Club at Southern Methodist University. Connecting academic learning with real-world experience in wealth and asset management.">
+  <link rel="icon" type="image/png" href="images/PBAM-Logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-</head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>PBAM — Private Banking & Asset Management | SMU</title>
-<meta name="description" content="Private Banking & Asset Management Club at Southern Methodist University. Connecting academic learning with real-world experience in wealth and asset management.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* Force the new skyline background image on the hero section */
+    .hero {
+      position: relative !important;
+      background-image: url('images/dallas-jpm skyline.png') !important;
+      background-size: cover !important;
+      background-position: center center !important;
+      background-repeat: no-repeat !important;
+      background-color: transparent !important;
+      overflow: hidden;
+    }
+
+    /* Dark green semi-transparent overlay so text remains readable */
+    .hero-overlay {
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 35, 25, 0.65);
+      z-index: 1;
+    }
+
+    /* Keep text, icons, and buttons on top of the image */
+    .hero-cols,
+    .hero-inner,
+    .hero-base {
+      position: relative;
+      z-index: 2;
+    }
+
+    /* Target strictly the hero "JOIN PBAM" button background box */
+    .btn-primary,
+    a.btn-primary {
+      background-color: #EAE8DC !important;
+      border-color: #EAE8DC !important;
+      color: #152820 !important;
+    }
+
+    /* ==========================================================================
+       RESPONSIVE DESIGN & MOBILE LAYOUT ADJUSTMENTS
+       ========================================================================== */
+
+    /* Fluid Typography & Container Constraints */
+    html {
+      font-size: 16px;
+      -webkit-text-size-adjust: 100%;
+    }
+
+    img, svg, video {
+      max-width: 100%;
+      height: auto;
+    }
+
+    .wrap {
+      width: 90%;
+      max-width: 1200px;
+      margin: 0 auto;
+    }
+
+    /* Ensure auto-scaling on mobile devices */
+    @media (max-width: 768px) {
+      .hero {
+        background-position: center center !important;
+        padding: 60px 20px;
+      }
+    }
+
+    /* --- TABLETS & SMALL DESKTOPS (<= 1024px) --- */
+    @media screen and (max-width: 1024px) {
+      /* Navigation */
+      .nav-links {
+        gap: 20px;
+      }
+      .nav-links a {
+        font-size: 0.85rem;
+      }
+      
+      /* Hero Sections */
+      .page-hero h1 {
+        font-size: 2.8rem !important;
+      }
+      .page-hero p {
+        font-size: 1rem;
+        padding: 0 15px;
+      }
+
+      /* Grid Layouts */
+      .insights-grid {
+        grid-template-columns: repeat(2, 1fr);
+        gap: 20px;
+      }
+    }
+
+    /* --- TABLETS PORTRAIT & LARGE PHONES (<= 768px) --- */
+    @media screen and (max-width: 768px) {
+      /* Hero Styling */
+      .page-hero {
+        padding: 60px 0 40px 0 !important;
+      }
+      
+      .page-hero h1 {
+        font-size: 2.2rem !important;
+      }
+
+      /* Filter Bar & Dropdown Adjustments */
+      .filter-wrapper {
+        flex-direction: column;
+        align-items: stretch;
+        gap: 12px;
+      }
+
+      .filter-tabs {
+        justify-content: flex-start;
+        overflow-x: auto;
+        white-space: nowrap;
+        padding-bottom: 6px;
+        -webkit-overflow-scrolling: touch;
+      }
+
+      .tab-btn {
+        padding: 6px 14px;
+        font-size: 0.78rem;
+        flex-shrink: 0;
+      }
+
+      .subfilter-container {
+        margin-left: 0;
+        justify-content: space-between;
+        width: 100%;
+      }
+
+      .subfilter-select {
+        width: 60%;
+      }
+
+      /* Grid Adjustments */
+      .insights-grid {
+        grid-template-columns: 1fr;
+      }
+
+      /* Article Popup Modal */
+      .modal-container {
+        max-height: 90vh;
+        margin: 10px;
+      }
+
+      .modal-header, 
+      .modal-body {
+        padding: 20px;
+      }
+
+      .modal-title {
+        font-size: 1.4rem;
+      }
+    }
+
+    /* --- MOBILE PHONES (<= 480px) --- */
+    @media screen and (max-width: 480px) {
+      .page-hero h1 {
+        font-size: 1.8rem !important;
+      }
+
+      .subfilter-container {
+        flex-direction: column;
+        align-items: flex-start;
+        gap: 6px;
+      }
+
+      .subfilter-select {
+        width: 100%;
+      }
+
+      .insight-card {
+        padding: 18px;
+      }
+
+      .insight-title {
+        font-size: 1.25rem;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -43,10 +221,9 @@
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
-<div class="nav-links" id="navLinks">
+    <div class="nav-links" id="navLinks">
       <a href="index.html">Home</a>
       <a href="what-we-do.html">What We Do</a>
-      <!-- ADD THE NEW TAB RIGHT HERE -->
       <a href="market-insights.html">Market Insights</a>
       <a href="team.html">Team</a>
       <a href="recruitment.html">Recruitment</a>
@@ -57,190 +234,7 @@
 
 <main id="top">
 
-<!-- HERO WITH SKYLINE BACKGROUND -->
-<style>
-  /* Force the new skyline background image on the hero section */
-  .hero {
-    position: relative !important;
-    background-image: url('images/dallas-jpm skyline.png') !important;
-    background-size: cover !important;
-    background-position: center center !important;
-    background-repeat: no-repeat !important;
-    background-color: transparent !important;
-    overflow: hidden;
-  }
-
-  /* Dark green semi-transparent overlay so text remains readable */
-  .hero-overlay {
-    position: absolute;
-    top: 0;
-    left: 0;
-    width: 100%;
-    height: 100%;
-    background-color: rgba(15, 35, 25, 0.65);
-    z-index: 1;
-  }
-
-  /* Keep text, icons, and buttons on top of the image */
-  .hero-cols,
-  .hero-inner,
-  .hero-base {
-    position: relative;
-    z-index: 2;
-  }
-
-  /* Target strictly the hero "JOIN PBAM" button background box */
-  .btn-primary,
-  a.btn-primary {
-    background-color: #EAE8DC !important;
-    border-color: #EAE8DC !important;
-    color: #152820 !important;
-  }
-
-  /* Ensure auto-scaling on mobile devices */
-  @media (max-width: 768px) {
-    .hero {
-      background-position: center center !important;
-      padding: 60px 20px;
-    }
-  }
-
-  /* ==========================================================================
-   RESPONSIVE DESIGN & MOBILE LAYOUT ADJUSTMENTS
-   ========================================================================== */
-
-/* Fluid Typography & Container Constraints */
-html {
-  font-size: 16px;
-  -webkit-text-size-adjust: 100%;
-}
-
-img, svg, video {
-  max-width: 100%;
-  height: auto;
-}
-
-.wrap {
-  width: 90%;
-  max-width: 1200px;
-  margin: 0 auto;
-}
-
-/* --- TABLETS & SMALL DESKTOPS (<= 1024px) --- */
-@media screen and (max-width: 1024px) {
-  /* Navigation */
-  .nav-links {
-    gap: 20px;
-  }
-  .nav-links a {
-    font-size: 0.85rem;
-  }
-  
-  /* Hero Sections */
-  .page-hero h1 {
-    font-size: 2.8rem !important;
-  }
-  .page-hero p {
-    font-size: 1rem;
-    padding: 0 15px;
-  }
-
-  /* Grid Layouts */
-  .insights-grid {
-    grid-template-columns: repeat(2, 1fr);
-    gap: 20px;
-  }
-}
-
-/* --- TABLETS PORTRAIT & LARGE PHONES (<= 768px) --- */
-@media screen and (max-width: 768px) {
-  /* Hero Styling */
-  .page-hero {
-    padding: 60px 0 40px 0 !important;
-  }
-  
-  .page-hero h1 {
-    font-size: 2.2rem !important;
-  }
-
-  /* Filter Bar & Dropdown Adjustments */
-  .filter-wrapper {
-    flex-direction: column;
-    align-items: stretch;
-    gap: 12px;
-  }
-
-  .filter-tabs {
-    justify-content: flex-start;
-    overflow-x: auto;
-    white-space: nowrap;
-    padding-bottom: 6px;
-    -webkit-overflow-scrolling: touch;
-  }
-
-  .tab-btn {
-    padding: 6px 14px;
-    font-size: 0.78rem;
-    flex-shrink: 0;
-  }
-
-  .subfilter-container {
-    margin-left: 0;
-    justify-content: space-between;
-    width: 100%;
-  }
-
-  .subfilter-select {
-    width: 60%;
-  }
-
-  /* Grid Adjustments */
-  .insights-grid {
-    grid-template-columns: 1fr;
-  }
-
-  /* Article Popup Modal */
-  .modal-container {
-    max-height: 90vh;
-    margin: 10px;
-  }
-
-  .modal-header, 
-  .modal-body {
-    padding: 20px;
-  }
-
-  .modal-title {
-    font-size: 1.4rem;
-  }
-}
-
-/* --- MOBILE PHONES (<= 480px) --- */
-@media screen and (max-width: 480px) {
-  .page-hero h1 {
-    font-size: 1.8rem !important;
-  }
-
-  .subfilter-container {
-    flex-direction: column;
-    align-items: flex-start;
-    gap: 6px;
-  }
-
-  .subfilter-select {
-    width: 100%;
-  }
-
-  .insight-card {
-    padding: 18px;
-  }
-
-  .insight-title {
-    font-size: 1.25rem;
-  }
-}
-</style>
-
+  <!-- HERO WITH SKYLINE BACKGROUND -->
   <section class="hero">
     <div class="hero-overlay"></div>
     <div class="hero-cols" aria-hidden="true">
@@ -277,16 +271,6 @@ img, svg, video {
           <p>Every semester, we combine structured education with direct access to the industry, so members graduate with both the vocabulary and the practical instincts the field demands.</p>
         </div>
       </div>
-    </div>
-  </section>
-
-  <!-- CTA -->
-  <section class="about" style="text-align:center;">
-    <div class="wrap">
-      <div class="eyebrow">Get Involved</div>
-      <h2 style="max-width:22ch; margin:14px auto 20px;">Interested in joining PBAM?</h2>
-      <p style="max-width:50ch; margin:0 auto 32px; color:rgba(21,40,32,0.68); font-weight:300; font-size:16px;">Recruitment details for this semester are on the way. Check back soon, or reach out to a member of our exec team.</p>
-      <a href="recruitment.html" class="btn btn-outline-dark">View Recruitment</a>
     </div>
   </section>
 

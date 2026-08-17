@@ -3,18 +3,160 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  
-  <title>PBAM — Private Banking & Asset Management | SMU</title>
+  <meta name="description" content="Education, guest speakers, projects, and more from the Private Banking and Asset Management Club at SMU.">
+  <link rel="icon" type="image/png" href="images/PBAM-Logo.png">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
   <link rel="stylesheet" href="styles.css">
-</head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>What We Do — PBAM SMU</title>
-<meta name="description" content="Education, guest speakers, projects, and more from the Private Banking and Asset Management Club at SMU.">
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=Jost:wght@300;400;500;600&display=swap" rel="stylesheet">
-<link rel="stylesheet" href="styles.css">
+
+  <style>
+    /* HERO WITH SKYLINE BACKGROUND & CENTERED TITLE */
+    .page-hero {
+      position: relative !important;
+      background-image: url('images/dallas-jpm skyline.png') !important;
+      background-size: cover !important;
+      background-position: center center !important;
+      background-repeat: no-repeat !important;
+      background-color: transparent !important;
+      overflow: hidden;
+      padding: 100px 0 !important;
+      text-align: center !important;
+    }
+
+    /* Semi-transparent overlay over hero image */
+    .page-hero::before {
+      content: "";
+      position: absolute;
+      top: 0;
+      left: 0;
+      width: 100%;
+      height: 100%;
+      background-color: rgba(15, 35, 25, 0.65);
+      z-index: 1;
+    }
+
+    .page-hero-inner {
+      position: relative;
+      z-index: 2;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      text-align: center !important;
+    }
+
+    /* Hide the watermark SVG icon in the background */
+    .page-hero > .col-mark {
+      display: none !important;
+    }
+
+    /* Match heading styling to Recruitment Page */
+    .page-hero h1 {
+      font-family: 'Cormorant Garamond', serif !important;
+      font-style: italic !important;
+      font-weight: 400 !important;
+      color: #EAE8DC !important;
+      margin: 0 auto !important;
+      text-align: center !important;
+    }
+
+    .page-hero p {
+      color: #EAE8DC !important;
+      max-width: 650px;
+      margin: 16px auto 0 auto !important;
+    }
+
+    /* APPLICATION CTA BUTTON STYLES (MATCHES RECRUITMENT TAB EXACTLY) */
+    .apply-btn {
+      display: inline-block;
+      padding: 12px 32px;
+      background-color: #152820;
+      color: #EAE8DC;
+      font-family: 'Jost', sans-serif;
+      font-size: 0.9rem;
+      font-weight: 600;
+      letter-spacing: 0.08em;
+      text-transform: uppercase;
+      text-decoration: none;
+      border: 1px solid #152820;
+      border-radius: 4px;
+      transition: all 0.25s ease;
+      cursor: pointer;
+    }
+
+    .apply-btn:hover {
+      background-color: #EAE8DC;
+      color: #152820;
+      border-color: #152820;
+      transform: translateY(-2px);
+      box-shadow: 0 4px 12px rgba(21, 40, 32, 0.15);
+    }
+
+    /* FEATURE SHOWCASE SECTION STYLES */
+    .feature-showcase {
+      padding: 60px 0;
+    }
+
+    .feature-row {
+      display: flex;
+      align-items: center;
+      gap: 60px;
+      margin-bottom: 80px;
+    }
+
+    .feature-row:last-child {
+      margin-bottom: 0;
+    }
+
+    /* Reverse layout for alternating rows */
+    .feature-row.reverse {
+      flex-direction: row-reverse;
+    }
+
+    .feature-media {
+      flex: 1 1 50%;
+      width: 100%;
+    }
+
+    .feature-img {
+      width: 100%;
+      height: auto;
+      max-height: 480px;
+      object-fit: cover;
+      border-radius: 4px;
+      border: 1px solid rgba(21, 40, 32, 0.12);
+      box-shadow: 0 8px 24px rgba(0, 0, 0, 0.06);
+      display: block;
+    }
+
+    .feature-content {
+      flex: 1 1 50%;
+    }
+
+    .feature-content h2 {
+      font-family: 'Cormorant Garamond', serif;
+      font-size: clamp(28px, 3.5vw, 38px);
+      color: #152820;
+      margin: 8px 0 16px 0;
+      line-height: 1.2;
+    }
+
+    .feature-content p {
+      color: #333333;
+      line-height: 1.65;
+      font-size: 1.05rem;
+    }
+
+    @media (max-width: 768px) {
+      .feature-row,
+      .feature-row.reverse {
+        flex-direction: column;
+        gap: 24px;
+        margin-bottom: 50px;
+      }
+    }
+  </style>
 </head>
 <body>
 
@@ -42,10 +184,9 @@
     <button class="nav-toggle" id="navToggle" aria-label="Toggle menu">
       <span></span><span></span><span></span>
     </button>
-<div class="nav-links" id="navLinks">
+    <div class="nav-links" id="navLinks">
       <a href="index.html">Home</a>
-      <a href="what-we-do.html">What We Do</a>
-      <!-- ADD THE NEW TAB RIGHT HERE -->
+      <a href="what-we-do.html" aria-current="page">What We Do</a>
       <a href="market-insights.html">Market Insights</a>
       <a href="team.html">Team</a>
       <a href="recruitment.html">Recruitment</a>
@@ -58,62 +199,61 @@
 
   <!-- PAGE HERO -->
   <section class="page-hero">
-    <svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg>
     <div class="wrap page-hero-inner">
-      <div class="eyebrow on-dark"><span class="rule"></span>What We Do</div>
-      <h1>A closer look at how private wealth really works.</h1>
-      <p>Here's a snapshot of what we're focused on this semester — education, guest speakers, and hands-on projects — with more happening throughout the year.</p>
+      <h1>What We Do</h1>
     </div>
   </section>
 
-  <!-- PRACTICE GRID -->
-  <section class="practice tight flush-top">
-    <div class="wrap">
-      <div class="practice-grid">
-        <div class="practice-card reveal">
-          <svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg>
-          <h3>Educational Sessions</h3>
-          <p>Member-led deep dives into the core mechanics of the wealth and asset management sector — from portfolio construction to private banking fundamentals — building a shared foundation across the club.</p>
-        </div>
-        <div class="practice-card reveal">
-          <svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg>
-          <h3>Guest Speakers</h3>
-          <p>We bring in professionals established in private banking and asset management, alongside recent grads who walked the same path our members are on now, for candid conversation about the industry and how to break in.</p>
-        </div>
-        <div class="practice-card reveal">
-          <svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg>
-          <h3>Semester Projects</h3>
-          <p>Teams apply what they've learned in sessions to hands-on projects in portfolio allocation and long-term wealth strategy, turning theory into a body of work members can speak to in interviews.</p>
-        </div>
-      </div>
-    </div>
-  </section>
 
-  <!-- MORE, OPEN-ENDED -->
-  <section class="about tight">
+
+  <!-- ALTERNATING IMAGE & DETAIL SHOWCASE -->
+  <section class="feature-showcase tight">
     <div class="wrap">
-      <div class="section-head reveal">
-        <div class="eyebrow">And Beyond That</div>
-        <h2 style="font-size:clamp(24px,3vw,32px);">There's more to PBAM than any one list.</h2>
+      
+      <!-- FEATURE 1: IMAGE LEFT -->
+      <div class="feature-row reveal">
+        <div class="feature-media">
+          <!-- REPLACE WITH YOUR IMAGE FILE NAME -->
+          <img src="images/PBAM-Fall'25-Group-Photo.jpg" alt="Detailed feature view" class="feature-img">
+        </div>
+        <div class="feature-content">
+          <div class="eyebrow">Our Vision</div>
+          <p>The Private Banking & Asset Management Club at Southern Methodist University was founded in Fall '25 to broaden students’ exposure beyond career paths in investment banking, private equity, corporate finance and others. We seek to address a gap in campus resources and professional guidance for students interested in how private wealth teams serve high-net-worth (HNW) and ultra-high-net-worth (UHNW) families, alongside how asset managers exhibit vehicles such as ETFs, mutual funds, ALTS, etc. Developing members ability to articulate investment theses, deliver mock client recommendations, and conduct market analysis.</p>
+        </div>
       </div>
-      <div class="more-list reveal">
-        <div class="more-item"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg><span>Firm visits and site tours</span></div>
-        <div class="more-item"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg><span>Networking socials with members and alumni</span></div>
-        <div class="more-item"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg><span>Resume, interview, and recruiting prep</span></div>
-        <div class="more-item"><svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg><span>Cross-club and campus collaborations</span></div>
+
+      <!-- FEATURE 2: IMAGE RIGHT -->
+      <div class="feature-row reverse reveal">
+        <div class="feature-media">
+          <!-- REPLACE WITH YOUR IMAGE FILE NAME -->
+          <img src="images/SMU-Dallas.jpg" alt="Detailed feature view" class="feature-img">
+        </div>
+        <div class="feature-content">
+          <div class="eyebrow">Education</div>
+          <p>We'll introduce students to a comprehensive introduction to private banking and asset management, highlighting capital markets, economic analysis, products and their risk, investment security selection, and psychology of capital. We aim to assist with resume and interview preparation as an additional resource.</p>
+        </div>
+      </div>
+
+            <!-- FEATURE 1: IMAGE LEFT -->
+      <div class="feature-row reveal">
+        <div class="feature-media">
+          <!-- REPLACE WITH YOUR IMAGE FILE NAME -->
+          <img src="images/BofA.png" alt="Detailed feature view" class="feature-img">
+        </div>
+        <div class="feature-content">
+          <div class="eyebrow">Who we recruit</div>
+          <p>We are looking for students from all majors who are interested in wealth management and front-office practices. With a preference for those with a passion for investments, building relationships, and portfolio construction.</p>
+        </div>
       </div>
     </div>
   </section>
 
   <!-- CTA -->
-  <section class="tight" style="background:var(--ink); color:var(--cream); text-align:center;">
+  <section class="tight" style="text-align:center; padding-top: 0;">
     <div class="wrap">
-      <div class="eyebrow on-dark">Ready to Get Involved?</div>
-      <h2 style="color:var(--cream); margin:14px 0 26px;">See what joining PBAM looks like.</h2>
-      <a href="recruitment.html" class="btn btn-primary">View Recruitment</a>
+      <a href="recruitment.html" class="apply-btn">View Recruitment</a>
     </div>
   </section>
-
 </main>
 
 <footer>
@@ -128,6 +268,7 @@
           <h4>Explore</h4>
           <a href="index.html">Home</a>
           <a href="what-we-do.html">What We Do</a>
+          <a href="market-insights.html">Market Insights</a>
           <a href="team.html">Team</a>
         </div>
         <div class="foot-col">
