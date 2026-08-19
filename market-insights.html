@@ -484,6 +484,23 @@
   }
 
   @media screen and (max-width: 768px) {
+    /* Force mobile navigation links to render in white */
+    .nav-links a,
+    .nav-links.open a,
+    #navLinks a {
+      color: #EAE8DC !important;
+    }
+
+    .nav-links a:hover,
+    .nav-links a[aria-current="page"] {
+      color: #FFFFFF !important;
+      opacity: 0.85;
+    }
+
+    .nav-toggle span {
+      background-color: #18352A;
+    }
+
     .page-hero { padding: 60px 0 20px 0 !important; }
     .page-hero h1 { font-size: 2.2rem !important; }
     .filter-wrapper { flex-direction: column; align-items: stretch; gap: 12px; }
@@ -649,7 +666,7 @@
 <script>
   let allArticles = [];
 
-  // CURATED RESOURCES LIST (8 PODCASTS & 4 BOOKS)
+  // CURATED RESOURCES LIST (8 PODCASTS & 5 BOOKS)
   const CURATED_RESOURCES = [
     // 8 PODCASTS
     { type: 'podcast', title: 'Barrons Live', image: 'images/Barrons Live.png', link: 'https://podcasts.apple.com/us/podcast/barrons-live/id1523729084', description: 'Host: Barrons | Investing' },

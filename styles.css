@@ -317,17 +317,61 @@ footer{background:#18352A;color:rgba(243,238,225,0.7);padding:30px 0 12px;}
 .reveal{opacity:0;transform:translateY(22px);transition:opacity .8s ease, transform .8s ease;}
 .reveal.in{opacity:1;transform:translateY(0);}
 
-/* ---------- Mobile Drawer Navigation ---------- */
+/* ---------- Mobile Drawer Navigation & Nested Dropdowns ---------- */
 @media (max-width:768px){
   .nav-links{
     position:fixed;top:0;right:0;height:100vh;width:78%;max-width:320px;
-    background:var(--ink);flex-direction:column;justify-content:center;
-    align-items:flex-start;gap:28px;padding:0 40px;
+    background:var(--ink);flex-direction:column;justify-content:flex-start;
+    align-items:flex-start;gap:20px;padding:90px 32px 40px;
     transform:translateX(100%);transition:transform .4s ease;
+    overflow-y:auto; /* Allows scrolling inside drawer when sub-tabs open */
+    -webkit-overflow-scrolling:touch;
   }
   .nav-links.open{transform:translateX(0);}
   .nav-links a{color:var(--cream);font-size:14px;}
   .nav-links a[aria-current="page"]{color:var(--sage);}
+
+  /* Mobile Sub-Tab Options & Dropdown Menus */
+  .nav-links li, 
+  .nav-links .tab-item {
+    width:100%;
+  }
+
+  .nav-links .dropdown-menu,
+  .nav-links .tab-options,
+  .nav-links li ul {
+    display:none;
+    flex-direction:column;
+    gap:12px;
+    padding-left:16px;
+    margin-top:12px;
+    border-left:1px solid var(--sage);
+  }
+
+  /* Reveal sub-tabs when parent is clicked */
+  .nav-links li.active > .dropdown-menu,
+  .nav-links li.active > ul,
+  .nav-links .tab-item.active > .tab-options,
+  .nav-links .dropdown-menu.show,
+  .nav-links .tab-options.show {
+    display:flex;
+  }
+
+  .nav-links .dropdown-menu a,
+  .nav-links .tab-options a,
+  .nav-links li ul a {
+    font-size:13px;
+    color:rgba(243,238,225,0.75);
+    text-transform:none;
+    letter-spacing:0.04em;
+  }
+
+  .nav-links .dropdown-menu a:hover,
+  .nav-links .tab-options a:hover,
+  .nav-links li ul a:hover {
+    color:var(--sage);
+  }
+
   .nav-cta{display:none;}
   .nav-toggle{display:flex;flex-direction:column;gap:5px;background:none;border:none;cursor:pointer;z-index:110;padding:8px;}
   .nav-toggle span{width:22px;height:1.5px;background:var(--cream);transition:all .3s ease;}

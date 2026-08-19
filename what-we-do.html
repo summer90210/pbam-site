@@ -11,14 +11,14 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
-/* HERO WITH SKYLINE BACKGROUND & CENTERED TITLE */
+    /* HERO WITH SKYLINE BACKGROUND & CENTERED TITLE */
     .page-hero {
       position: relative !important;
       background-image: url('images/dallas-jpm skyline.png') !important;
       background-size: cover !important;
       background-position: center center !important;
       background-repeat: no-repeat !important;
-      background-attachment: scroll !important; /* <--- Move up naturally when scrolling */
+      background-attachment: scroll !important;
       background-color: transparent !important;
       overflow: hidden;
       padding: 100px 0 !important;
@@ -68,7 +68,7 @@
       margin: 16px auto 0 auto !important;
     }
 
-    /* APPLICATION CTA BUTTON STYLES (MATCHES RECRUITMENT TAB EXACTLY) */
+    /* APPLICATION CTA BUTTON STYLES */
     .apply-btn {
       display: inline-block;
       padding: 12px 32px;
@@ -149,12 +149,31 @@
       font-size: 1.05rem;
     }
 
+    /* MOBILE NAVIGATION STYLING FIXES */
     @media (max-width: 768px) {
       .feature-row,
       .feature-row.reverse {
         flex-direction: column;
         gap: 24px;
         margin-bottom: 50px;
+      }
+
+      /* Force mobile dropdown text links to render white */
+      .nav-links a,
+      .nav-links.open a,
+      #navLinks a {
+        color: #EAE8DC !important;
+      }
+
+      .nav-links a:hover,
+      .nav-links a[aria-current="page"] {
+        color: #FFFFFF !important;
+        opacity: 0.85;
+      }
+
+      /* Optional: Ensure mobile toggle button icon bars stay clear */
+      .nav-toggle span {
+        background-color: #18352A;
       }
     }
   </style>
@@ -205,8 +224,6 @@
     </div>
   </section>
 
-
-
   <!-- ALTERNATING IMAGE & DETAIL SHOWCASE -->
   <section class="feature-showcase tight">
     <div class="wrap">
@@ -214,38 +231,39 @@
       <!-- FEATURE 1: IMAGE LEFT -->
       <div class="feature-row reveal">
         <div class="feature-media">
-          <!-- REPLACE WITH YOUR IMAGE FILE NAME -->
-          <img src="images/PBAM-Fall'25-Group-Photo.jpg" alt="Detailed feature view" class="feature-img">
+          <img src="images/PBAM-Fall'25-Group-Photo.jpg" alt="PBAM Group Photo" class="feature-img">
         </div>
         <div class="feature-content">
           <div class="eyebrow">Our Vision</div>
-          <p>The Private Banking & Asset Management Club at Southern Methodist University was founded in Fall '25 to broaden students' exposure beyond career paths in investment banking, private equity, corporate finance and others. We seek to address a gap in campus resources and professional guidance for students interested in how private wealth teams serve high-net-worth (HNW) and ultra-high-net-worth (UHNW) families, alongside how asset managers exhibit vehicles such as ETFs, mutual funds, ALTS, etc. We develop members' ability to articulate investment theses, deliver mock client recommendations, and conduct market analysis.</p>
+          <h2>Bridging Campus to Industry</h2>
+          <p>The Private Banking & Asset Management Club at Southern Methodist University was founded in Fall '25 to broaden student exposure beyond traditional investment banking, private equity, and corporate finance paths. We address a critical gap in campus resources by educating students on how private wealth teams serve high-net-worth (HNW) and ultra-high-net-worth (UHNW) families, and how asset managers structure and distribute vehicles like ETFs, mutual funds, and private alternatives. Through practical workshops, we equip members to build investment theses, deliver mock client recommendations, and conduct macro market analysis.</p>
         </div>
       </div>
 
       <!-- FEATURE 2: IMAGE RIGHT -->
       <div class="feature-row reverse reveal">
         <div class="feature-media">
-          <!-- REPLACE WITH YOUR IMAGE FILE NAME -->
-          <img src="images/SMU-Dallas.jpg" alt="Detailed feature view" class="feature-img">
+          <img src="images/SMU-Dallas.jpg" alt="SMU Dallas Campus" class="feature-img">
         </div>
         <div class="feature-content">
           <div class="eyebrow">Education</div>
-          <p>We'll introduce students to a comprehensive introduction to private banking and asset management, highlighting capital markets, economic analysis, products and their risk, investment security selection, and psychology of capital. We aim to provide access to experienced guest speakers from leading private banks, RIA's, and asset management firms, offering industry insights alongside resume and interview preparation as an additional resource.</p>
+          <h2>Comprehensive Industry Preparation</h2>
+          <p>Our curriculum offers members a robust introduction to private banking and asset management, covering capital markets, macroeconomic analysis, asset allocation, portfolio risk, and market psychology. We directly connect students with industry leaders by hosting guest speakers from prominent private wealth practices, RIAs, and global asset management firms, alongside offering targeted resume reviews and technical interview preparation.</p>
         </div>
       </div>
 
-            <!-- FEATURE 1: IMAGE LEFT -->
+      <!-- FEATURE 3: IMAGE LEFT -->
       <div class="feature-row reveal">
         <div class="feature-media">
-          <!-- REPLACE WITH YOUR IMAGE FILE NAME -->
-          <img src="images/jpm-travis-hughes.png" alt="J.P. Morgan Presentation with Travis Hughes">
+          <img src="images/jpm-travis-hughes.png" alt="J.P. Morgan Presentation with Travis Hughes" class="feature-img">
         </div>
         <div class="feature-content">
-          <div class="eyebrow">Who we recruit</div>
-          <p>We are looking for students from all majors who are interested in wealth management and front-office practices. With a preference for those with a passion for investments, building relationships, and portfolio construction.</p>
+          <div class="eyebrow">Who We Recruit</div>
+          <h2>Driven & Curious Minds</h2>
+          <p>We welcome students across all majors who demonstrate a strong interest in wealth management, market dynamics, and front-office practices. Ideal candidates bring a curiosity for portfolio construction, fundamental analysis, and the relationship management skills essential for client-facing careers.</p>
         </div>
       </div>
+
     </div>
   </section>
 
@@ -281,8 +299,6 @@
         <div class="foot-col">
           <h4>Southern Methodist University</h4>
           <p>Dallas, TX</p>
-          <p>Dallas, TX</p>
-          
         </div>
       </div>
     </div>
