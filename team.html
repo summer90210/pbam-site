@@ -13,7 +13,7 @@
   <link rel="stylesheet" href="styles.css">
 
 <style>
-  /* HERO WITH SKYLINE BACKGROUND & CENTERED TITLE (MATCHED TO RECRUITMENT TAB) */
+  /* HERO WITH SKYLINE BACKGROUND & CENTERED TITLE */
   .page-hero {
     position: relative !important;
     background-image: url('images/dallas-jpm skyline.png') !important;
@@ -47,17 +47,15 @@
     text-align: center !important;
   }
 
-  /* Match "Leadership" heading styling to "Join PBAM" on Recruitment Page */
   .page-hero h1 {
     font-family: 'Cormorant Garamond', serif !important;
     font-style: italic !important;
     font-weight: 400 !important;
-    color: #EAE8DC !important; /* Gold/cream accent color */
+    color: #EAE8DC !important;
     margin: 0 auto !important;
     text-align: center !important;
   }
 
-  /* Hide the watermark SVG icon in the background */
   .page-hero > .col-mark {
     display: none !important;
   }
@@ -70,11 +68,18 @@
     color: #152820 !important;
   }
 
-  /* FORCE ALL TEAM & FOUNDER PHOTOS TO SCALE TO FILL THE ENTIRE CARD */
+  /* 4-COLUMN GRID LAYOUT */
+  .team-grid {
+    display: grid !important;
+    grid-template-columns: repeat(4, 1fr) !important;
+    gap: 24px !important;
+  }
+
+  /* FORCE ALL TEAM & FOUNDER PHOTOS TO BE LARGER & FILL CARDS */
   .team-photo {
     position: relative !important;
     width: 100% !important;
-    height: 320px !important; /* Standard height matching executive board cards */
+    height: 360px !important; /* Increased height for larger headshots */
     overflow: hidden !important;
     background-color: transparent !important;
   }
@@ -99,7 +104,7 @@
   .linkedin-link {
     display: inline-flex;
     align-items: center;
-    color: #152820; /* Dark green brand color */
+    color: #152820;
     opacity: 0.8;
     transition: opacity 0.2s ease, transform 0.2s ease;
     text-decoration: none;
@@ -110,11 +115,23 @@
     transform: translateY(-1px);
   }
 
-  /* Increased from 16px to 22px for better visibility */
   .linkedin-icon {
     width: 22px;
     height: 22px;
     fill: currentColor;
+  }
+
+  /* RESPONSIVE BREAKPOINTS */
+  @media (max-width: 1024px) {
+    .team-grid {
+      grid-template-columns: repeat(2, 1fr) !important;
+    }
+  }
+
+  @media (max-width: 600px) {
+    .team-grid {
+      grid-template-columns: 1fr !important;
+    }
   }
 </style>
 </head>

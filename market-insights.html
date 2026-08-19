@@ -325,8 +325,8 @@
 
   .resource-image {
     width: 100%;
-    height: 320px;
-    object-fit: cover;
+    height: 420px;          /* Increased height to accommodate taller book covers */
+    object-fit: contain;     /* Ensures the full cover image fits without getting cropped */
     display: block;
   }
 
@@ -630,8 +630,8 @@
         <div class="foot-col">
           <h4>Connect</h4>
           <a href="recruitment.html">Recruitment</a>
-          <a href="https://www.linkedin.com" target="_blank" rel="noopener noreferrer">LinkedIn</a>
-          <a href="https://www.instagram.com" target="_blank" rel="noopener noreferrer">Instagram</a>
+          <a href="https://www.linkedin.com/company/pbam/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://www.instagram.com/smu.pbam/" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
         <div class="foot-col">
           <h4>Southern Methodist University</h4>
@@ -661,11 +661,12 @@
     { type: 'podcast', title: 'Schwab Market', image: 'images/Schwab Market Update.png', link: 'https://podcasts.apple.com/us/podcast/schwab-market-update-audio/id1421968445', description: 'Host: Charles SchwabFinancial Markets' },
     { type: 'podcast', title: 'Wall Street Breakfast', image: 'images/Wall Street Breakfast.png', link: 'https://podcasts.apple.com/us/podcast/wall-street-breakfast/id1358381502', description: 'Host: Seeking Alpha | Business and Finance' },
 
-    // 4 BOOKS
-    { type: 'book', title: 'Book Title 1', image: '', link: '#', description: 'Add book author, key topics, and overview here.' },
-    { type: 'book', title: 'Book Title 2', image: '', link: '#', description: 'Add book author, key topics, and overview here.' },
-    { type: 'book', title: 'Book Title 3', image: '', link: '#', description: 'Add book author, key topics, and overview here.' },
-    { type: 'book', title: 'Book Title 4', image: '', link: '#', description: 'Add book author, key topics, and overview here.' }
+    // 5 BOOKS
+    { type: 'book', title: 'The Psychology of Money', image: 'images/The Psychology of Money.png', link: 'https://www.amazon.com/dp/0857197681?lv=shuf&channelId=500&plpRedirect=mhFallback', description: 'Author: Morgan Housel' },
+    { type: 'book', title: 'The Art of Spending Money', image: 'images/The Art of Spending Money.png', link: 'https://www.amazon.com/Art-Spending-Money-Simple-Choices/dp/0593716620/ref=sr_1_1?crid=1ENRA1BLV21I2&dib=eyJ2IjoiMSJ9.UNJktY-a9jWWvZkO79numvn_gRpQKmp1YMU9IP9dXlfgXmQmJdk5nw2Vq1JPSxt1S5dPKIYHsWaTTjS_JtX_x_auLdg_ZGulA-yT6h4M4MmwzXoB0i70sDMUeRfYsaYWVh2fGmZh2YkpIbI0NKIodFR7voNLU-3bytnUlyoOqim9l09tf4CIgeKArcoB3fVjn0PspdGye2xNtPVH4R6op4gz5-MGOeon-f4C3XqMpkU.AYNccoMjs4qSpYsmtePiO9TWnXy47UcLbGbw8HCxJX4&dib_tag=se&keywords=the%2Bart%2Bof%2Bspending%2Bmoney&qid=1787149947&s=books&sprefix=the%2Bart%2Bof%2Bspen%2Cstripbooks%2C160&sr=1-1', description: 'Author: Morgan Housel' },
+    { type: 'book', title: 'Strangers in Paradise', image: 'images/Strangers in Paradise.png', link: 'https://www.amazon.com/Strangers-Paradise-Families-Wealth-Generations/dp/0615894356/ref=sr_1_1?crid=1JXE76L0I3368&dib=eyJ2IjoiMSJ9.jNqZW4qsdFGnxpYViDBk6rAQv_-mXDGZR5Q59aAbeFXvK4PvEJZNZG5KEm_CNFVo-0j8xAMdDTsuXBIUkJmGsu2o_wvhS03jx-A24kXhYm4gL8QN5_2e5J5lnoXVlGOA31e972Vz1hG5SQNR68UkDA3qzxWKL3grUeWcXYh2tz9rF15SbciItzA11EMJWEbV2P8g16yPiYoOYAvczS6SnF-AqSwRCf3J5lBo7zfw7pU.nW5BGrVYtNqHWW-cIpOscBf8Bi68loNEJjUhWfaxma4&dib_tag=se&keywords=strangers%2Bin%2Bparadise&qid=1787150069&sprefix=strangers%2Bin%2Bpara%2Caps%2C195&sr=8-1', description: 'Author: James Grubman' },
+    { type: 'book', title: 'Family Wealth', image: 'images/Family Wealth.png', link: 'https://www.amazon.com/Family-Wealth-Keeping-Intellectual-Financial-Generations/dp/157660151X/ref=sr_1_1?crid=FODR48NHO5YR&dib=eyJ2IjoiMSJ9.F-oxHyFnHO6xcH4QU5StTBFIkf45QCR-IuVnH7Khvb9Nhow5yPIbCtVJ3zAA8bm2.HeIWxkfmvSiuwPugTpc7DYubHBKRYfGVFhmPq9NXAb0&dib_tag=se&keywords=how+family+members+and+their+advisers&qid=1787150047&sprefix=hoe+family+members+and+their+advisers%2Caps%2C192&sr=8-1', description: 'Author: James E. Hughes Jr' },
+    { type: 'book', title: 'Same as Ever', image: 'images/Same as Ever.png', link: 'https://www.amazon.com/Same-Ever-Guide-Never-Changes/dp/0593332709/ref=sr_1_1?crid=3J47G90FM69K2&dib=eyJ2IjoiMSJ9.yoW8MBnMnzwWfCStUObBupGjJIuQcF_aCoGLl65T1MVI67px_RH3_hESdGCK_rTSE2GvuWg7FT3bsqS9xOZw5mRR5-tpSQJLCNV8BUH-JqpsSGNNixuoviAXjZ5qKSbkCxTUV355miIzoci4YYSE064eVNXcWgTCCODWMyhsJVVRdmygDp37pqlfT6bZZujp-xaEUAZDpTl4t0XNIyar_i__D433H1i8Ify48-tFWOI.65kDOT8mvyPpS17EWAqTd_dkfvIrhlHyv8frpv0JYi0&dib_tag=se&keywords=same%2Bas%2Bever&qid=1787149963&s=books&sprefix=same%2Bas%2Bever%2Cstripbooks%2C147&sr=1-1', description: 'Author: Morgan Housel' }, 
   ];
 
   // Per-Tab Rolling Window Configuration (in Days)
