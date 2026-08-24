@@ -152,6 +152,13 @@
       grid-template-columns: 1fr !important;
     }
   }
+  /* Zoom in specifically on Nick Yanoti and Helena Hanor headshots */
+    .team-photo img[src*="Nick-Yanoti"],
+    .team-photo img[src*="Helena-Hanor"] {
+      transform: scale(1.90); /* Adjust scale factor as needed (e.g., 1.2 to 1.5) */
+      transform-origin: center 55%; /* Centers the zoom on their faces */
+  }
+
 </style>
 </head>
 <body>
@@ -348,7 +355,7 @@
         <!-- Helena Hanor -->
         <div class="team-card reveal">
           <div class="team-photo">
-            <img src="images/Helena-Hanor.jpg" alt="Helena Hanor" class="zoom-in">
+            <img src="images/Helena-Hanor.png" alt="Helena Hanor" class="zoom-in">
           </div>
           <div class="team-name">
             <span>Helena Hanor</span>

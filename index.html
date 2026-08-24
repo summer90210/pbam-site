@@ -12,6 +12,39 @@
   <link rel="stylesheet" href="styles.css">
 
   <style>
+    /* Force image display and clear CSS overrides on figure */
+    .about-figure {
+      background-image: none !important;
+      background-color: transparent !important;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      overflow: hidden;
+    }
+
+    /* Make the image column wider than the text column */
+    .about-grid {
+      grid-template-columns: 1.2fr 0.8fr !important; /* 60% photo, 40% text */
+      align-items: center;
+    }
+
+    .about-figure img {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      display: block;
+      border-radius: 4px;
+    }
+
+    /* Style Our Mission paragraph to match Student Experience exactly */
+    .about-copy p {
+      font-family: 'Jost', sans-serif !important;
+      font-size: 1rem !important;
+      color: #444444 !important;
+      font-weight: 400 !important;
+      line-height: 1.65 !important;
+    }
+
     /* Force skyline background image on hero section */
     .hero {
       position: relative !important;
@@ -157,6 +190,7 @@
       font-family: 'Jost', sans-serif;
       font-size: 1rem;
       color: #444444;
+      font-weight: 400;
       line-height: 1.65;
     }
 
@@ -366,7 +400,7 @@
       <p class="hero-sub">A student-run club at the intersection of capital markets and client services, preparing members for the evolving world of private wealth & asset management through educational sessions and portfolio construction.</p>
       <div class="hero-actions">
         <a href="recruitment.html" class="btn btn-primary">Join PBAM</a>
-        <a href="#about" class="btn btn-ghost">Learn More</a>
+        <a href="what-we-do.html" class="btn btn-ghost">Learn More</a>
       </div>
     </div>
     <div class="hero-base"></div>
@@ -377,12 +411,12 @@
     <div class="wrap">
       <div class="about-grid">
         <div class="about-figure reveal">
-          <svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg>
+          <img src="images/Exec-Pic.png" alt="PBAM Executive Team">
         </div>
         <div class="about-copy reveal">
           <div class="eyebrow">Our Mission</div>
-          <h2>SMU's preeminent student-run club for front-office Private Banking and institutional Asset Management.</h2>
-          <p class="lede">SMU's preeminent student-run club for front-office Private Banking and institutional Asset Management. Our mission at the Private Banking & Asset Management Club (PBAM) is to foster SMU’s premier recruiting pipeline for careers across wealth and asset management by equipping driven students with an understanding of institutional asset management, broker-dealer operations at wirehouses and at independent broker-dealers.</p>
+          <p>SMU's preeminent student-run club for front-office Private Banking and institutional Asset Management. Our mission at the Private Banking & Asset Management Club (PBAM) is to foster SMU’s premier recruiting pipeline for careers across wealth and asset management by equipping driven students with an understanding of institutional asset management, broker-dealer operations at wirehouses and at independent broker-dealers. The ability to connect academic learning with real-world financial experience, fostering hands-on projects in portfolio allocation and long-term wealth strategies.</p>
+          <p style="margin-top: 1rem;">Through our comprehensive curriculum, interactive market discussions, members gain hands-on experience in tailoring client portfolio needs, and a holistic understanding of wealth and asset management.</p>
         </div>
       </div>
     </div>
@@ -397,20 +431,20 @@
       </div>
       <div class="sector-grid reveal">
         <div class="sector-card">
-          <h4>Private Wealth Management</h4>
-          <p>Explore how advisors, relationship managers, and investment and lending teams work together to manage complex client needs.</p>
+          <h4>Wealth Management</h4>
+          <p>Explore how advisors, investment and lending teams work together to manage complex client needs.</p>
         </div>
         <div class="sector-card">
           <h4>Investments</h4>
-          <p>Evaluate multi-asset investment vehicles across a variety of asset classes and alternative assets (ALTS) in support of portfolio construction.</p>
+          <p>Evaluate multi-asset investment vehicles across asset classes to support portfolio construction.</p>
         </div>
         <div class="sector-card">
           <h4>Macro-Level Economics</h4>
-          <p>Analyze global macroeconomic trends and market cycles to understand their impact on investment decisions.</p>
+          <p>Analyze global macro trends to assess their impact on investment decisions.</p>
         </div>
         <div class="sector-card">
           <h4>Client Communication</h4>
-          <p>Develop professional communication through simulated client recommendations, market briefings, and investment discussions.</p>
+          <p>Develop through simulated client recommendations, market briefings, and investment discussions.</p>
         </div>
       </div>
     </div>
@@ -463,8 +497,7 @@
   <div class="wrap">
     <div class="foot-top">
       <div class="foot-brand">
-        <svg class="col-mark" viewBox="0 0 60 60"><use href="#col-icon"/></svg>
-        <span class="foot-brand-name">PBAM</span>
+        <img src="images/PBAM-Logo.png" alt="PBAM Logo" class="foot-logo">
       </div>
       <div class="foot-links">
         <div class="foot-col">
@@ -477,7 +510,7 @@
         <div class="foot-col">
           <h4>Connect</h4>
           <a href="recruitment.html">Recruitment</a>
-          <a href="https://www.linkedin.com/company/pbam/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
+          <a href="https://www.linkedin.com/company/pb-am/" target="_blank" rel="noopener noreferrer">LinkedIn</a>
           <a href="https://www.instagram.com/smu.pbam/" target="_blank" rel="noopener noreferrer">Instagram</a>
         </div>
         <div class="foot-col">

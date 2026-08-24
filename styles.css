@@ -380,3 +380,15 @@ footer{background:#18352A;color:rgba(243,238,225,0.7);padding:30px 0 12px;}
   header.nav-open .nav-toggle span{background:var(--cream) !important;}
   .page-hero .col-mark{display:none;}
 }
+
+.foot-brand {
+  display: flex;
+  align-items: center;
+}
+
+.foot-logo {
+  height: 150px;       /* Keeps height small to match the original text size */
+  width: auto;        /* Preserves aspect ratio */
+  display: block;
+  object-fit: contain;
+}
