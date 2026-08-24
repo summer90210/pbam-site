@@ -189,29 +189,51 @@ section.flush-top{padding-top:56px;}
 .section-head p{margin-top:20px;font-size:clamp(14px, 1.4vw, 16px);line-height:1.75;color:rgba(21,40,32,0.68);font-weight:300;}
 .section-head.centered{margin-left:auto;margin-right:auto;text-align:center;}
 
-/* ---------- About / overview ---------- */
+/* ---------- About / Our Mission Grid ---------- */
 .about{background:var(--cream);}
 .about-grid{
   display:grid;
-  grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+  grid-template-columns: 1.2fr 0.8fr;
   gap:clamp(32px, 6vw, 70px);
-  align-items:start;
+  align-items:center;
 }
 .about-figure{
-  position:relative;background:var(--forest) url("images/dallas-skyline.jpg") center/cover no-repeat;aspect-ratio:4/5;border-radius:2px;
-  display:flex;align-items:center;justify-content:center;overflow:hidden;
+  position:relative;
+  background-color:transparent;
+  display:flex;
+  align-items:center;
+  justify-content:center;
+  overflow:hidden;
+  width:100%;
+  border-radius:2px;
+}
+.about-figure img{
+  width:100%;
+  height:auto;
+  object-fit:contain;
+  display:block;
+  border-radius:4px;
 }
 .about-figure .col-mark{width:44%;color:var(--cream);opacity:0.9;}
-.about-figure::after{
-  content:'';position:absolute;inset:0;
-  background:radial-gradient(120% 120% at 20% 15%, rgba(0,0,0,0.28), transparent 60%);
-}
 .about-copy .eyebrow{margin-bottom:20px;}
 .about-copy h2{font-size:clamp(24px, 3.4vw, 40px);margin-bottom:26px;}
 .about-copy p{font-size:clamp(15px, 1.5vw, 17px);line-height:1.85;color:rgba(21,40,32,0.72);font-weight:300;margin-bottom:20px;}
 .about-copy p.lede{
   font-family:var(--serif);font-size:clamp(18px, 2vw, 24px);font-style:italic;color:var(--ink);line-height:1.5;
   border-left:2px solid var(--forest);padding-left:22px;margin-bottom:30px;
+}
+
+/* Responsive Breakpoints for Our Mission */
+@media screen and (max-width: 1024px) {
+  .about-grid {
+    gap: 32px;
+  }
+}
+@media screen and (max-width: 768px) {
+  .about-grid {
+    grid-template-columns: 1fr;
+    gap: 28px;
+  }
 }
 
 /* ---------- Stat strip ---------- */
@@ -304,6 +326,7 @@ footer{background:#18352A;color:rgba(243,238,225,0.7);padding:30px 0 12px;}
 .foot-brand{display:flex;align-items:center;gap:12px;color:var(--cream);}
 .foot-brand .col-mark{width:24px;height:24px;}
 .foot-brand-name{font-family:var(--serif);font-size:20px;letter-spacing:0.12em;}
+.foot-logo{height:150px;width:auto;display:block;object-fit:contain;}
 .foot-links{display:flex;gap:clamp(24px, 4vw, 48px);flex-wrap:wrap;}
 .foot-col h4{font-size:12px;letter-spacing:0.1em;text-transform:uppercase;color:rgba(243,238,225,0.4);margin-bottom:14px;font-weight:500;}
 .foot-col a, .foot-col p{display:block;font-size:14.5px;margin-bottom:10px;color:rgba(243,238,225,0.75);}
@@ -324,14 +347,13 @@ footer{background:#18352A;color:rgba(243,238,225,0.7);padding:30px 0 12px;}
     background:var(--ink);flex-direction:column;justify-content:flex-start;
     align-items:flex-start;gap:20px;padding:90px 32px 40px;
     transform:translateX(100%);transition:transform .4s ease;
-    overflow-y:auto; /* Allows scrolling inside drawer when sub-tabs open */
+    overflow-y:auto;
     -webkit-overflow-scrolling:touch;
   }
   .nav-links.open{transform:translateX(0);}
   .nav-links a{color:var(--cream);font-size:14px;}
   .nav-links a[aria-current="page"]{color:var(--sage);}
 
-  /* Mobile Sub-Tab Options & Dropdown Menus */
   .nav-links li, 
   .nav-links .tab-item {
     width:100%;
@@ -348,7 +370,6 @@ footer{background:#18352A;color:rgba(243,238,225,0.7);padding:30px 0 12px;}
     border-left:1px solid var(--sage);
   }
 
-  /* Reveal sub-tabs when parent is clicked */
   .nav-links li.active > .dropdown-menu,
   .nav-links li.active > ul,
   .nav-links .tab-item.active > .tab-options,
@@ -379,16 +400,4 @@ footer{background:#18352A;color:rgba(243,238,225,0.7);padding:30px 0 12px;}
   header.static-light .nav-toggle span{background:var(--ink);}
   header.nav-open .nav-toggle span{background:var(--cream) !important;}
   .page-hero .col-mark{display:none;}
-}
-
-.foot-brand {
-  display: flex;
-  align-items: center;
-}
-
-.foot-logo {
-  height: 150px;       /* Keeps height small to match the original text size */
-  width: auto;        /* Preserves aspect ratio */
-  display: block;
-  object-fit: contain;
 }
